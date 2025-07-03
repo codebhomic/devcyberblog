@@ -87,10 +87,10 @@ ob_start();
                     ?>
                     <tr>
                         <td>
-                            <h6 class="mb-0"><?php echo $article['title']; ?></h6>
+                            <h6 class="mb-0"><?php echo substr($article['title'],0,20); ?></h6>
                         </td>
                         <td>
-                            <h6 class="mb-0"><?php echo $article['slug']; ?></h6>
+                            <h6 class="mb-0"><?php echo substr($article['slug'],0,20); ?></h6>
                         </td>
                         <td><?php echo $article['is_published'] ? "Yes" : "No"; ?></td>
                         <td><?php echo $article['is_published'] ? $article['published_at'] : "Not Published" ; ?></td>

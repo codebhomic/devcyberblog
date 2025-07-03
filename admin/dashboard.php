@@ -32,8 +32,8 @@ ob_start();
     <div class="col-lg-8 mb-4">
         <div class="card animate__animated animate__fadeIn">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5><i class="fas fa-shopping-bag me-2"></i>Recent Orders</h5>
-                <a href="orders.php" class="btn btn-sm btn-outline-primary">View All</a>
+                <!-- <h5><i class="fas fa-shopping-bag me-2"></i>Recent Orders</h5> -->
+                <a href="blog_articles.php" class="btn btn-sm btn-outline-primary">View All Blog</a>
             </div>
         </div>
     </div>

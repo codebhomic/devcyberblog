@@ -14,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $title             = $_POST['title'];
     $slug              = $_POST['slug']; // You can also auto-generate from title
     $content           = $_POST['content'];
-    $excerpt           = $_POST['excerpt'];
     $cover_image_url   = $_POST['cover_image_url'];
     $author_id         = $_SESSION['user_id'];
     $meta_title        = $_POST['meta_title'];
@@ -26,19 +25,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $now               = date('Y-m-d H:i:s');
     $stmt = $conn->prepare("
     INSERT INTO blog_articles (
-        title, slug, content, excerpt, cover_image_url,
+        title, slug, content, cover_image_url,
         meta_title, meta_description, is_published, is_featured,
         category_id, published_at, created_at, updated_at,author_id
-    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
+    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?,?)
     ");
     
 // print_r($published_at);die();
     $stmt->bind_param(
-        "sssssssiiisssi",
+        "ssssssssisssi",
         $title,
         $slug,
         $content,
-        $excerpt,
         $cover_image_url,
         $meta_title,
         $meta_description,
@@ -119,13 +117,6 @@ ob_start();
                         <label class="form-label">Article</label>
                         <textarea id="edit_description" class="form-control" name="content" rows="4" required></textarea>
                         <small class="text-muted">Provide a detailed Article for blog</small>
-                    </div>
-
-                    <div class="row mb-3">
-                        <label class="form-label">Excerpt</label>
-                        <div class="input-group">
-                            <input type="text" class="form-control" name="excerpt" required>
-                        </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-md-6">
