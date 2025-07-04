@@ -1,14 +1,6 @@
 <?php
 session_start();
-require_once 'includes/db_connect.php';
-
-// Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
-    exit();
-}
-
-
+require_once 'includes/helper.php';
 // Include DB connection
 require_once 'includes/db_connect.php';
 
@@ -16,15 +8,15 @@ require_once 'includes/db_connect.php';
 $slug = isset($_GET['slug']) ? $_GET['slug'] : '';
 
 if (!preg_match('/^[a-z0-9-]+$/', $slug)) {
-    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
-    include "error/400.html";
+    header($_SERVER["SERVER_PROTOCOL"] . " 404 Bad Request");
+    error_page("404");
     exit();
 }
 
 // Validate slug (basic)
 if (!$slug) {
     header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
-    include "error/400.html";
+    error_page("404");
     exit();
 }
 

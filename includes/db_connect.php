@@ -1,7 +1,6 @@
 <?php
 error_reporting(E_ALL);
 ini_set('display_errors',1);
-$base_url = "http://localhost/dev_cyber_blog/";
 
 $host = "localhost";
 $dbUsername = "root";

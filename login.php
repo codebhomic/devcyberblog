@@ -1,6 +1,13 @@
 <?php
 session_start();
-require "includes/db_connect.php";
+require_once "includes/helper.php";
+require_once "includes/db_connect.php";
+$user = get_logged_in_user($conn);
+if ($user){
+    header('location: admin/dashboard.php');
+    $_SESSION["message"] = "User is already Login";
+}
+$page_title = "Login Page";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = mysqli_real_escape_string($conn, $_POST['username']);
     $password = $_POST['password'];
@@ -40,9 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $error = "Wrong username/password combination";
 }
-
-require "includes/header.php";
+ob_start();
 ?>
+
 
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
@@ -108,4 +115,10 @@ require "includes/header.php";
         </div>
     </div>
 </section>
-<?php require "includes/footer.php"; ?>
+<?php
+// Get the buffered content
+$content = ob_get_clean();
+
+// Include the layout
+include 'includes/base_layout.php';
+?>

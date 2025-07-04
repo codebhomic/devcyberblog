@@ -1,19 +1,9 @@
 <?php
 session_start();
+require_once 'includes/helper.php';
 require_once 'includes/db_connect.php';
-
-// Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
-    exit();
-}
-
 // Set page title
-$page_title = "Dashboard";
-
-// Start output buffering
-// Include DB connection
-require_once 'includes/db_connect.php';
+$page_title = "Home";
 
 // Fetch Featured Posts
 $featuredSql = "SELECT b.*, u.full_name AS author_name, c.name AS category_name, c.slug AS category_slug
@@ -34,9 +24,7 @@ $otherSql = " SELECT b.*, u.full_name AS author_name,c.name AS category_name, c.
     WHERE b.is_published = 1 OR b.is_published != Null OR b.is_published != 0
     ORDER BY b.id DESC";
 $otherResult = mysqli_query($conn, $otherSql);
-
 ob_start();
-
 ?>
 
 <section class="bg-white dark:bg-gray-900">
@@ -56,7 +44,7 @@ ob_start();
                             <img src="<?php echo $post['cover_image_url'] ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
-                            <a href="categories.php?slug=<?php echo htmlspecialchars($post['category_slug']); ?>"><span
+                            <a href="<?php echo url_for("categories.php/blog/".htmlspecialchars($post['category_slug'])); ?>"><span
                                 class="bg-indigo-100 capitalize text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-800">
                                 <?php echo htmlspecialchars($post['category_name']); ?>
                             </span></a>
@@ -71,7 +59,7 @@ ob_start();
                             ?></span>
                         </div>
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
-                                href="article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>">
+                                href="<?php echo url_for("blog/".htmlspecialchars($post['slug'])); ?>">
                                 <?php echo htmlspecialchars($post['title']); ?> 
                             </a></h2>
                         <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
@@ -84,7 +72,7 @@ ob_start();
                                     <?php echo htmlspecialchars($post['author_name']); ?>
                                 </span>
                             </div>
-                            <a href="<?= $base_url;?>article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-500 hover:underline">
+                            <a href="<?php echo url_for("blog/".htmlspecialchars($post['slug'])); ?>" class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-500 hover:underline">
                                 Read more
                                 <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>
@@ -116,7 +104,7 @@ ob_start();
                             <img src="<?php echo $post['cover_image_url'] ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
-                            <a href="categories.php?slug=<?php echo htmlspecialchars($post['category_slug']); ?>"><span
+                            <a href="categories.php/blog/<?php echo htmlspecialchars($post['category_slug']); ?>"><span
                                 class="bg-indigo-100 capitalize text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-800">
                                 <?php echo htmlspecialchars($post['category_name']); ?>
                             </span></a>
@@ -131,7 +119,7 @@ ob_start();
                             ?></span>
                         </div>
                         <h2 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"><a
-                                href="<?= $base_url;?>article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>">
+                                href="<?php echo url_for("/blog/".htmlspecialchars($post['slug'])); ?>">
                                 <?php echo htmlspecialchars($post['title']); ?>
                             </a></h2>
                         <p class="mb-5 font-light text-gray-500 dark:text-gray-400">
@@ -144,7 +132,7 @@ ob_start();
                                     <?php echo htmlspecialchars($post['author_name']); ?>
                                 </span>
                             </div>
-                            <a href="<?= $base_url;?>article.php?slug=<?php echo htmlspecialchars($post['slug']); ?>" class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-500 hover:underline">
+                            <a href="<?php echo url_for("/blog/".htmlspecialchars($post['slug'])); ?>" class="inline-flex items-center font-medium text-indigo-600 dark:text-indigo-500 hover:underline">
                                 Read more
                                 <svg class="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
                                     <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path>

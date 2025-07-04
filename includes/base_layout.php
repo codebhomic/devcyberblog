@@ -1,11 +1,8 @@
 <?php
-// Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
-    exit();
-}
+
 // Set the active page
 $current_page = basename($_SERVER['PHP_SELF']);
+
 ?>
 <!doctype html>
 <html lang="en" class="dark">
@@ -15,32 +12,41 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title></title>
     <title><?php echo $page_title; ?> - Dev Cyber Blog</title>
-    <script src="<?= $base_url;?>static/js/tailwind.config.js"></script>
+    <script src="<?= url_for("static/js/tailwind.config.js"); ?>"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    
+
     <header>
         <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="<?= $base_url;?>index.php" class="flex items-center">
+                <a href="<?= url_for("index.php"); ?>" class="flex items-center">
                     <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> -->
                     <span
                         class="self-center text-xl font-semibold whitespace-nowrap text-black dark:text-white">DevCyberBlog</span>
                 </a>
                 <div class="flex items-center lg:order-2">
-                    <a href="login.php"
-                        class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
-                        Log in</a>
+                    <?php
+                    $user = get_logged_in_user($conn);
+                    if (!$user):
+                        ?>
+                        <a href="<?= url_for("login.php") ?>"
+                            class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
+                            Log in</a>
+                    <?php else: ?>
+                        <a href="<?= url_for("admin/dashboard.php") ?>"
+                            class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
+                            dashboard</a>
+                    <?php endif; ?>
                     <!-- <a href="#" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
                         </a> -->
                 </div>
                 <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
                     <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
                         <li>
-                            <a href="<?= $base_url;?>index.php"
+                            <a href="<?= url_for("index.php"); ?>"
                                 class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
                                 aria-current="page">Home</a>
                         </li>
@@ -62,26 +68,17 @@ $current_page = basename($_SERVER['PHP_SELF']);
                                 class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
                                 <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
                                     aria-labelledby="categoriesDropdown">
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Category
-                                            1</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Category
-                                            2</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Category
-                                            3</a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Category
-                                            4</a>
-                                    </li>
+                                    <?php
+                                    $cat_query = "SELECT * FROM blog_categories ORDER BY name";
+                                    $cat_result = mysqli_query($conn, $cat_query);
+                                    while ($category = mysqli_fetch_assoc($cat_result)) { ?>
+                                        <li>
+                                            <a href="<?= url_for("category/" . $category["slug"]) ?>"
+                                                class="block px-4 capitalize py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                                                <?= $category["name"] ?>
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                 </ul>
                             </div>
 
@@ -258,7 +255,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
-    <script src="<?= $base_url;?>static/js/scipt.js"></script>
+    <script src="<?= url_for("static/js/scipt.js"); ?>"></script>
 </body>
 
 </html>
