@@ -10,8 +10,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title></title>
-    <title><?php echo $page_title; ?> - Dev Cyber Blog</title>
+    <title><?= $page_title; ?> - <?= SITE_NAME?></title>
     <script src="<?= url_for("static/js/tailwind.config.js"); ?>"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
@@ -26,7 +25,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <a href="<?= url_for("index.php"); ?>" class="flex items-center">
                     <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> -->
                     <span
-                        class="self-center text-xl font-semibold whitespace-nowrap text-black dark:text-white">DevCyberBlog</span>
+                        class="self-center text-xl font-semibold whitespace-nowrap text-black dark:text-white"><?= SITE_NAME?></span>
                 </a>
                 <div class="flex items-center lg:order-2">
                     <?php
@@ -136,7 +135,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
                 <a
                     class="flex title-font font-medium items-center md:justify-start justify-center text-gray-900 dark:text-gray-100">
-                    <span class="text-xl">DevCyberBlog</span>
+                    <span class="text-xl"><?= SITE_NAME?></span>
                 </a>
                 <p class="mt-2 text-sm text-gray-500 dark:text-gray-100">Air plant banjo lyft occupy retro adaptogen
                     indego</p>
@@ -218,7 +217,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
         <div class="bg-gray-100 dark:bg-gray-900">
             <div class="container mx-auto py-4 px-5 flex flex-wrap flex-col sm:flex-row">
-                <p class="text-gray-500 dark:text-gray-100 text-sm text-center sm:text-left">© 2020 Our Blogs</p>
+                <p class="text-gray-500 dark:text-gray-100 text-sm text-center sm:text-left">© 2020 <?= SITE_NAME?></p>
                 <span class="inline-flex sm:ml-auto sm:mt-0 mt-2 justify-center sm:justify-start">
                     <a class="text-gray-500 dark:text-gray-100">
                         <svg fill="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
