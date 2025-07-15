@@ -2,10 +2,11 @@
 session_start();
 require_once "includes/helper.php";
 require_once "includes/db_connect.php";
-$user = get_logged_in_user($conn);
-if ($user){
-    header('location: admin/dashboard.php');
+// Check if user is logged in and is admin
+if (is_login()){
     $_SESSION["message"] = "User is already Login";
+    redirect("admin/dashboard.php");
+    exit();
 }
 $page_title = "Login Page";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -37,7 +38,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $_SESSION['user_type'] = $user['user_type'];
 
             if ($user['user_type'] == 'admin') {
-                header('location: admin/dashboard.php');
+                if(!isset($_GET['next'])){
+                    header('location: admin/dashboard.php');
+                }else{
+                    $next = trim(htmlspecialchars($_GET['next']));
+                }
+                ?>
+                <script>
+                    window.location.href = "<?= SITE_URL.$next ?>"
+                </script>
+                <?php
             } else {
                 header('location: index.php');
             }

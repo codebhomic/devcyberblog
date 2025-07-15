@@ -89,6 +89,11 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         </label>
                         <span class="theme-text">Dark</span>
                     </div>
+                    <div class="nav-item">
+                            <a class="btn btn-primary mx-4 <?= $current_page == 'settings.php' ? 'active' : ''; ?>" href="<?= SITE_URL ?>">
+                                View Site
+                            </a>
+</div>
                 </div>
 
                 <?php if(isset($_SESSION['success'])) { ?>

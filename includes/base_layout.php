@@ -30,8 +30,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 </a>
                 <div class="flex items-center lg:order-2">
                     <?php
-                    $user = get_logged_in_user($conn);
-                    if (!$user):
+                    if (!is_login()):
                         ?>
                         <a href="<?= url_for("login.php") ?>"
                             class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">

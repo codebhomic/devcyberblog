@@ -1,5 +1,5 @@
 <?php
-// Connect to MySQL
+// // Connect to MySQL
 // $host = 'localhost';
 // $user = 'root';
 // $password = '';
@@ -13,10 +13,10 @@
 // }
 
 // // Input data (you can get this from a form)
-// $username = 'bhoumicgarg';
-// $email = 'businessbhoumic@gmail.com';
-// $plainPassword = 'Khushi1234';
-// $fullName = 'Bhoumic Garg';
+// $username = 'kastab';
+// $email = 'kastab@gmail.com';
+// $plainPassword = 'Admin1234';
+// $fullName = 'Kastab Garai';
 // $phone = '';
 // $userType = 'admin'; // You can also use ENUM or integer roles
 

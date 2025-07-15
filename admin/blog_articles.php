@@ -1,17 +1,22 @@
 <?php
 session_start();
+require_once '../includes/helper.php';
 require_once '../includes/db_connect.php';
 // Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
+if (!is_login()){
+    // header('location: ../login.php?next='.$_SERVER['REQUEST_URI']);
+    redirect("login.php?next=".$_SERVER['REQUEST_URI']);
     exit();
 }
+$user = get_logged_in_user($conn);
+$authorid = $user['id'];
 // Handle article deletion
 if (isset($_POST['article_delete'])) {
     $article_id = $_POST['article_id'];
-    $delete_query = "DELETE FROM blog_articles WHERE id = $article_id";
+    $delete_query = "UPDATE blog_articles SET is_deleted = 1 WHERE id = $article_id AND author_id = $authorid";
+    // $delete_query = "DELETE FROM blog_articles WHERE id = $article_id AND author_id = $authorid";
     mysqli_query($conn, $delete_query);
-    $_SESSION['success'] = "Article deleted successfully";
+    $_SESSION['success'] = "Request Sent to Delete Article successfully";
     header('location: blog_articles.php');
     exit();
 }
@@ -28,6 +33,7 @@ $sql = "SELECT
             blog_articles a
         LEFT JOIN 
             blog_categories c ON a.id = c.id
+        WHERE a.author_id = $authorid AND is_deleted = 0
         ORDER BY 
             a.created_at DESC
         LIMIT $limit OFFSET $offset";
@@ -101,7 +107,7 @@ ob_start();
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form action="blog_articles.php" method="POST" class="d-inline" 
-                                  onsubmit="return confirm('Are you sure you want to delete this blog article?');">
+                                  onsubmit="return confirm('Are you sure you want to request for deleting article?');">
                                 <input type="hidden" name="article_id" value="<?php echo $article['id']; ?>">
                                 <button type="submit" name="article_delete" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>

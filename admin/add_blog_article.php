@@ -1,13 +1,15 @@
 <?php
 session_start();
+require_once '../includes/helper.php';
 require_once '../includes/db_connect.php';
-
 // Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
+if (!is_login(true)){
+    // header('location: ../login.php?next='.$_SERVER['REQUEST_URI']);
+    redirect("login.php?next=".$_SERVER['REQUEST_URI']);
     exit();
 }
-
+$user = get_logged_in_user($conn);
+$authorid = $user['id'];
 // Handle form submission
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Get form data from admin POST request

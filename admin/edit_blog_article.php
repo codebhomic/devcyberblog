@@ -4,11 +4,11 @@ require_once '../includes/helper.php';
 require_once '../includes/db_connect.php';
 
 // Check if user is logged in and is admin
-if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
-    header('location: ../login.php');
+if (is_login(true)){
+    $_SESSION["message"] = "User is already Login";
+    redirect("admin/dashboard.php");
     exit();
 }
-
 if ($_SERVER['REQUEST_METHOD'] == "GET" && isset($_GET["id"])) {
     // Get blog_categories for dropdown
     $stmt = $conn->prepare("SELECT * FROM blog_articles WHERE id = ?");
