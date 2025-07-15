@@ -50,3 +50,29 @@ function error_page($error): void{
         die("500 | Server Error | File Not Found Which is Being Requested");
     }
 }
+
+function process_image_url($input_url) {
+    $parsed = parse_url($input_url);
+    print_r1($parsed);
+    // If no host, it's already relative
+    if (!isset($parsed['host'])) {
+        return $input_url;
+    }
+
+    // If the host matches your own domain, store relative
+    if ($parsed['host'] === SITE_URL) {
+        return $parsed['path'];
+    }
+
+    // Otherwise, keep full URL (external)
+    return $input_url;
+}
+
+function get_image_src($image_url) {
+    if (strpos($image_url, 'http') === 0) {
+        // External URL
+        return $image_url;
+    }
+    // Local file
+    return  htmlspecialchars(SITE_URL . $image_url);
+}

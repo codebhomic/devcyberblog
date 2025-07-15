@@ -23,19 +23,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['save_category'])) {
     $name = mysqli_real_escape_string($conn, $_POST['name']);
     $description = mysqli_real_escape_string($conn, $_POST['description']);
     $image = mysqli_real_escape_string($conn, $_POST['image']);
-    
+    $slug = mysqli_real_escape_string($conn, $_POST['slug']);
+
     if (isset($_POST['category_id'])) {
         // Update existing category
         $category_id = $_POST['category_id'];
-        $query = "UPDATE blog_categories SET name = '$name', description = '$description', image = '$image' 
+        $query = "UPDATE blog_categories SET name = '$name', description = '$description', image = '$image', slug = '$slug'
                   WHERE id = $category_id";
         $message = "Category updated successfully";
     } else {
         // Add new category
-        $query = "INSERT INTO blog_categories (name, description, image) VALUES ('$name', '$description', '$image')";
+        $query = "INSERT INTO blog_categories (name, description, image,slug) VALUES ('$name', '$description', '$image','$slug')";
         $message = "Category added successfully";
     }
-    
+
     if (mysqli_query($conn, $query)) {
         $_SESSION['success'] = $message;
         header('location: categories.php');
@@ -107,6 +108,15 @@ ob_start();
                         <?php } ?>
                     </div>
                     
+                    <div class="mb-3">
+                        <label class="form-label">Slug</label>
+
+                        <label class="form-label">Image URL</label>
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="slug" id="slug" value="<?= $edit_category ? $edit_category['slug'] : "" ?>"
+                                required>
+                        </div>
+                    </div>
                     <div class="d-flex">
                         <button type="submit" name="save_category" class="btn btn-primary">
                             <?php echo $edit_category ? 'Update Category' : 'Add Category'; ?>

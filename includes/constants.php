@@ -1,7 +1,8 @@
 <?php
 // General
-define('SITE_NAME', 'My Awesome Blog');
-define('SITE_URL', 'http://localhost/dev_cyber_blog/');
+define('SITE_NAME', 'Dev Cyber Blog');
+define('SITE_DOMAIN', 'blogbykb.istecgcmohali.in');
+define('SITE_URL', 'https://blogbykb.istecgcmohali.in/');
 define('SITE_EMAIL', 'admin@example.com');
 define('DEFAULT_LANGUAGE', 'en');
 define('TIMEZONE', 'UTC');

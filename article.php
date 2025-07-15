@@ -47,9 +47,8 @@ $post = mysqli_fetch_assoc($article_results);
 // print_r($post);
 // die();
 if (!$post) {
-    // Set page title
-    header("HTTP/1.1 404 Not Found");
-    include "error/404.html";
+    header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
+    error_page("404");
     exit();
 }
 
@@ -202,129 +201,10 @@ ob_start();
                 <div class="flex justify-between items-center mb-6">
                     <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (20)</h2>
                 </div>
-                <form class="mb-6">
-                    <div
-                        class="py-2 px-4 mb-4 bg-white dark:bg-gray-900 rounded-lg rounded-t-lg border border-gray-200 dark:bg-gray-800 dark:border-gray-700">
-                        <label for="comment" class="sr-only">Your comment</label>
-                        <textarea id="comment" rows="6"
-                            class="px-3 py-1 w-full text-sm text-gray-900 border-0 focus:ring-0 dark:text-white dark:placeholder-gray-400 dark:bg-gray-800"
-                            placeholder="Write a comment..." required></textarea>
-                    </div>
-                    <button type="submit"
-                        class="inline-flex items-center py-2.5 px-4 text-xs font-medium text-center text-white bg-indigo-700 rounded-lg focus:ring-4 focus:ring-indigo-200 dark:focus:ring-indigo-900 hover:bg-indigo-800">
-                        Post comment
-                    </button>
-                </form>
-                <article class="p-6 text-base bg-white dark:bg-gray-900 rounded-lg dark:bg-gray-900">
-                    <footer class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <p
-                                class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                                <img class="mr-2 w-6 h-6 rounded-full" src="https://dummyimage.com/200"
-                                    alt="Michael Gough">Michael Gough
-                            </p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-08"
-                                    title="February 8th, 2022">Feb. 8, 2022</time></p>
-                        </div>
-                        <button id="dropdownComment1Button" data-dropdown-toggle="dropdownComment1"
-                            class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:text-gray-400 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            type="button">
-                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 16 3">
-                                <path
-                                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                            </svg>
-                            <span class="sr-only">Comment settings</span>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownComment1"
-                            class="hidden z-10 w-36 bg-white dark:bg-gray-900 rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownMenuIconHorizontalButton">
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </footer>
-                    <p>Very straight-to-point article. Really worth time reading. Thank you! But tools are just the
-                        instruments for the UX designers. The knowledge of the design tools are as important as the
-                        creation of the design strategy.</p>
-                    <div class="flex items-center mt-4 space-x-4">
-                        <button type="button"
-                            class="flex items-center font-medium text-sm text-gray-500 hover:underline dark:text-gray-400">
-                            <svg class="mr-1.5 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 18">
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L10.414 13H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5 4h2a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2ZM5 4h5a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2Zm2 5H5a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm9 0h-6a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z" />
-                            </svg>
-                            Reply
-                        </button>
-                    </div>
-                </article>
-                <article class="p-6 ml-6 lg:ml-12 text-base bg-white dark:bg-gray-900 rounded-lg dark:bg-gray-900">
-                    <footer class="flex justify-between items-center mb-2">
-                        <div class="flex items-center">
-                            <p
-                                class="inline-flex items-center mr-3 font-semibold text-sm text-gray-900 dark:text-white">
-                                <img class="mr-2 w-6 h-6 rounded-full" src="https://dummyimage.com/200"
-                                    alt="Jese Leos">Jese Leos
-                            </p>
-                            <p class="text-sm text-gray-600 dark:text-gray-400"><time pubdate datetime="2022-02-12"
-                                    title="February 12th, 2022">Feb. 12, 2022</time></p>
-                        </div>
-                        <button id="dropdownComment2Button" data-dropdown-toggle="dropdownComment2"
-                            class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 bg-white dark:bg-gray-900 rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:text-gray-400 dark:bg-gray-900 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                            type="button">
-                            <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 16 3">
-                                <path
-                                    d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                            </svg>
-                            <span class="sr-only">Comment settings</span>
-                        </button>
-                        <!-- Dropdown menu -->
-                        <div id="dropdownComment2"
-                            class="hidden z-10 w-36 bg-white dark:bg-gray-900 rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                            <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                                aria-labelledby="dropdownMenuIconHorizontalButton">
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Edit</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Remove</a>
-                                </li>
-                                <li>
-                                    <a href="#"
-                                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </footer>
-                    <p>Much appreciated! Glad you liked it ☺️</p>
-                    <div class="flex items-center space-x-4">
-                        <button type="button"
-                            class="flex items-center font-medium text-sm text-gray-500 hover:underline dark:text-gray-400">
-                            <svg class="mr-1.5 w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor" viewBox="0 0 20 18">
-                                <path
-                                    d="M18 0H2a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L10.414 13H18a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2Zm-5 4h2a1 1 0 1 1 0 2h-2a1 1 0 1 1 0-2ZM5 4h5a1 1 0 1 1 0 2H5a1 1 0 0 1 0-2Zm2 5H5a1 1 0 0 1 0-2h2a1 1 0 0 1 0 2Zm9 0h-6a1 1 0 0 1 0-2h6a1 1 0 1 1 0 2Z" />
-                            </svg>
-                            Reply
-                        </button>
-                    </div>
-                </article>
+                
+                <div class=" bg-white text-black">
+                <div class="fb-comments" data-href="<?= SITE_URL.$_SERVER['REQUEST_URI'] ?>" data-width="" data-numposts="5"></div>
+                </div>
             </section>
         </article>
         <aside class="px-4 w-full md:w-1/3 sticky right-0">
@@ -414,112 +294,105 @@ ob_start();
         </aside>
     </div>
 </main>
+<?php
+// Fetch All Other Posts
+$otherSql = "
+    SELECT
+        b.*, u.full_name AS author_name, c.name AS category_name, c.slug AS category_slug
+    FROM blog_articles b
+    LEFT JOIN blog_categories c ON b.category_id = c.id
+    LEFT JOIN users u ON b.author_id = u.id
+    WHERE b.is_published = 1 AND b.category_id = 1
+    ORDER BY b.id DESC;
+";
+$otherResult = mysqli_query($conn, $otherSql);
 
-<section aria-label="Related articles" class="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
-    <div class="px-4 mx-auto max-w-screen-xl">
-        <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
-        <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
-            <article class="max-w-xs">
-                <a href="#">
-                    <img src="https://dummyimage.com/200" class="mb-5 rounded-lg" alt="Image 1">
-                </a>
-                <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                    <a href="#">Our first office</a>
-                </h2>
-                <p class="mb-4 text-gray-500 dark:text-gray-400">Over the past year, Volosoft has undergone many
-                    changes! After months of preparation.</p>
-                <a href="#"
-                    class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">
-                    Read in 2 minutes
-                </a>
-            </article>
-            <article class="max-w-xs">
-                <a href="#">
-                    <img src="https://dummyimage.com/200" class="mb-5 rounded-lg" alt="Image 2">
-                </a>
-                <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                    <a href="#">Enterprise design tips</a>
-                </h2>
-                <p class="mb-4  text-gray-500 dark:text-gray-400">Over the past year, Volosoft has undergone many
-                    changes! After months of preparation.</p>
-                <a href="#"
-                    class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">
-                    Read in 12 minutes
-                </a>
-            </article>
-            <article class="max-w-xs">
-                <a href="#">
-                    <img src="https://dummyimage.com/200" class="mb-5 rounded-lg" alt="Image 3">
-                </a>
-                <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                    <a href="#">We partnered with Google</a>
-                </h2>
-                <p class="mb-4  text-gray-500 dark:text-gray-400">Over the past year, Volosoft has undergone many
-                    changes! After months of preparation.</p>
-                <a href="#"
-                    class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">
-                    Read in 8 minutes
-                </a>
-            </article>
-            <article class="max-w-xs">
-                <a href="#">
-                    <img src="https://dummyimage.com/200" class="mb-5 rounded-lg" alt="Image 4">
-                </a>
-                <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                    <a href="#">Our first project with React</a>
-                </h2>
-                <p class="mb-4  text-gray-500 dark:text-gray-400">Over the past year, Volosoft has undergone many
-                    changes! After months of preparation.</p>
-                <a href="#"
-                    class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">
-                    Read in 4 minutes
-                </a>
-            </article>
+// If no posts in the category, fallback
+if (!$otherResult || $otherResult->num_rows === 0) {
+    $otherSql = "
+        SELECT
+            b.*, u.full_name AS author_name, c.name AS category_name, c.slug AS category_slug
+        FROM blog_articles b
+        LEFT JOIN blog_categories c ON b.category_id = c.id
+        LEFT JOIN users u ON b.author_id = u.id
+        WHERE b.is_published = 1
+        ORDER BY b.id DESC;
+    ";
+    $otherResult = mysqli_query($conn, $otherSql);
+}
+?>
+
+<?php if ($otherResult && $otherResult->num_rows > 0): ?>
+    <section aria-label="Related articles" class="py-8 lg:py-24 bg-gray-50 dark:bg-gray-800">
+        <div class="px-4 mx-auto max-w-screen-xl">
+            <h2 class="mb-8 text-2xl font-bold text-gray-900 dark:text-white">Related articles</h2>
+            <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+                <?php while ($post = $otherResult->fetch_assoc()): ?>
+                    <article class="max-w-sm">
+                        <a href="<?= url_for("blog/".$post['slug']) ?>">
+                            <img src="<?= $post['cover_image_url'] ?>" class="mb-5 rounded-lg" alt="Image 1">
+                        </a>
+                        <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
+                            <a href="<?= url_for("blog/".$post['slug']) ?>"><?= htmlspecialchars($post['title']); ?></a>
+                        </h2>
+                        <p class="mb-4 text-gray-700 dark:text-gray-200">
+                            <?= mb_strimwidth($post['content'], 0, 120, '...'); ?>
+                        </p>
+                        <a href="#"
+                            class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">
+                            Read in 2 minutes
+                        </a>
+                    </article>
+                <?php endwhile; ?>
+            </div>
         </div>
-    </div>
-</section>
+    </section>
+<?php endif; ?>
 
+<?php /* ?>
 <section class="bg-white dark:bg-gray-900">
-    <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
-        <div class="mx-auto max-w-screen-md sm:text-center">
-            <h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white">Sign
-                up for our newsletter</h2>
-            <p class="mx-auto mb-8 max-w-2xl  text-gray-500 md:mb-12 sm:text-xl dark:text-gray-400">Stay up to date
-                with the roadmap progress, announcements and exclusive discounts feel free to sign up with your
-                email.</p>
-            <form action="#">
-                <div class="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
-                    <div class="relative w-full">
-                        <label for="email"
-                            class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
-                            address</label>
-                        <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
-                                <path
-                                    d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
-                                <path
-                                    d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
-                            </svg>
-                        </div>
-                        <input
-                            class="block p-3 pl-9 w-full text-sm text-gray-900 bg-white dark:bg-gray-900 rounded-lg border border-gray-300 sm:rounded-none sm:rounded-l-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
-                            placeholder="Enter your email" type="email" id="email" required="">
-                    </div>
-                    <div>
-                        <button type="submit"
-                            class="py-3 px-5 w-full text-sm font-medium text-center text-white rounded-lg border cursor-pointer bg-indigo-700 border-indigo-600 sm:rounded-none sm:rounded-r-lg hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Subscribe</button>
-                    </div>
-                </div>
-                <div
-                    class="mx-auto max-w-screen-sm text-sm text-left text-gray-500 newsletter-form-footer dark:text-gray-300">
-                    We care about the protection of your data. <a href="#"
-                        class="font-medium text-indigo-600 dark:text-indigo-500 hover:underline">Read our Privacy
-                        Policy</a>.</div>
-            </form>
-        </div>
-    </div>
+<div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
+<div class="mx-auto max-w-screen-md sm:text-center">
+<h2 class="mb-4 text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl dark:text-white">Sign
+up for our newsletter</h2>
+<p class="mx-auto mb-8 max-w-2xl  text-gray-500 md:mb-12 sm:text-xl dark:text-gray-400">Stay up to date
+with the roadmap progress, announcements and exclusive discounts feel free to sign up with your
+email.</p>
+<form action="#">
+<div class="items-center mx-auto mb-3 space-y-4 max-w-screen-sm sm:flex sm:space-y-0">
+<div class="relative w-full">
+<label for="email"
+class="hidden mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Email
+address</label>
+<div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
+<svg class="w-4 h-4 text-gray-500 dark:text-gray-400" aria-hidden="true"
+xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 20 16">
+<path
+d="m10.036 8.278 9.258-7.79A1.979 1.979 0 0 0 18 0H2A1.987 1.987 0 0 0 .641.541l9.395 7.737Z" />
+<path
+d="M11.241 9.817c-.36.275-.801.425-1.255.427-.428 0-.845-.138-1.187-.395L0 2.6V14a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V2.5l-8.759 7.317Z" />
+</svg>
+</div>
+<input
+class="block p-3 pl-9 w-full text-sm text-gray-900 bg-white dark:bg-gray-900 rounded-lg border border-gray-300 sm:rounded-none sm:rounded-l-lg focus:ring-indigo-500 focus:border-indigo-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-indigo-500 dark:focus:border-indigo-500"
+placeholder="Enter your email" type="email" id="email" required="">
+</div>
+<div>
+<button type="submit"
+class="py-3 px-5 w-full text-sm font-medium text-center text-white rounded-lg border cursor-pointer bg-indigo-700 border-indigo-600 sm:rounded-none sm:rounded-r-lg hover:bg-indigo-800 focus:ring-4 focus:ring-indigo-300 dark:bg-indigo-600 dark:hover:bg-indigo-700 dark:focus:ring-indigo-800">Subscribe</button>
+</div>
+</div>
+<div
+class="mx-auto max-w-screen-sm text-sm text-left text-gray-500 newsletter-form-footer dark:text-gray-300">
+We care about the protection of your data. <a href="#"
+class="font-medium text-indigo-600 dark:text-indigo-500 hover:underline">Read our Privacy
+Policy</a>.</div>
+</form>
+</div>
+</div>
 </section>
+<?php */ ?>
+
 <?php
 // Get the buffered content
 $content = ob_get_clean();

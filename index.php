@@ -17,16 +17,45 @@ $featuredSql = "SELECT b.*, u.full_name AS author_name, c.name AS category_name,
 $featuredResult = mysqli_query($conn, $featuredSql);
 
 // Fetch All Other Posts
-$otherSql = " SELECT b.*, u.full_name AS author_name,c.name AS category_name, c.slug AS category_slug
-    FROM blog_articles b
-    LEFT JOIN blog_categories c ON b.category_id =c.id
-    LEFT JOIN users u ON b.author_id = u.id
-    WHERE b.is_published = 1 OR b.is_published != Null OR b.is_published != 0
-    ORDER BY b.id DESC";
-$otherResult = mysqli_query($conn, $otherSql);
+$categorySlug = isset($_GET['category']) ? trim($_GET['category']) : null;
+
+if ($categorySlug) {
+    // Prepare query for specific category
+    $otherSql = "
+        SELECT b.*,
+               u.full_name AS author_name,
+               c.name AS category_name,
+               c.slug AS category_slug
+        FROM blog_articles b
+        LEFT JOIN blog_categories c ON b.category_id = c.id
+        LEFT JOIN users u ON b.author_id = u.id
+        WHERE b.is_published = 1 AND c.slug = ?
+        ORDER BY b.id DESC
+    ";
+    $stmt = $conn->prepare($otherSql);
+    $stmt->bind_param("s", $categorySlug);
+    $stmt->execute();
+    $otherResult = $stmt->get_result();
+} else {
+    // Fetch all posts
+    $otherSql = "
+        SELECT b.*,
+               u.full_name AS author_name,
+               c.name AS category_name,
+               c.slug AS category_slug
+        FROM blog_articles b
+        LEFT JOIN blog_categories c ON b.category_id = c.id
+        LEFT JOIN users u ON b.author_id = u.id
+        WHERE b.is_published = 1
+        ORDER BY b.id DESC
+    ";
+    $otherResult = mysqli_query($conn, $otherSql);
+}
+
 ob_start();
 ?>
 
+<?php if (!$categorySlug) {?>
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="max-w-screen-sm text-start mb-8">
@@ -41,7 +70,7 @@ ob_start();
 
                     <article class="bg-white dark:bg-gray-900">
                         <div>
-                            <img src="<?php echo $post['cover_image_url'] ?>" alt="image" class="h-96 w-full mb-4">
+                            <img src="<?= get_image_src($post['cover_image_url']) ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                             <a href="<?php echo url_for("categories.php/blog/".htmlspecialchars($post['category_slug'])); ?>"><span
@@ -87,12 +116,13 @@ ob_start();
             </div>
         </div>
     </section>
+<?php }?>
 
 <section class="bg-white dark:bg-gray-900">
     <div class="py-8 px-4 mx-auto max-w-screen-xl lg:py-16 lg:px-6">
         <div class="max-w-screen-sm text-start mb-8">
-            <h2 class="mb-4 text-3xl lg:text-4xl tracking-tight font-extrabold text-gray-900 dark:text-white">
-                Our Blogs</h2>
+            <h2 class="mb-4 text-3xl tracking-tight font-extrabold text-gray-900 dark:text-white capitalize">
+                Our Blogs <?php if ($categorySlug): ?>for Category <?= str_replace("-", " ",$categorySlug) ?><?php endif;?></h2>
             <!-- <p class="font-light text-gray-500 sm:text-xl dark:text-gray-400">We use an agile approach to test
                     assumptions and connect with the needs of your audience early and often.</p> -->
         </div>
@@ -101,7 +131,7 @@ ob_start();
                 <?php while ($post = $otherResult->fetch_assoc()): ?>
                     <article class="bg-white dark:bg-gray-900">
                         <div>
-                            <img src="<?php echo $post['cover_image_url'] ?>" alt="image" class="h-96 w-full mb-4">
+                            <img src="<?= get_image_src($post['cover_image_url']) ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
                             <a href="categories.php/blog/<?php echo htmlspecialchars($post['category_slug']); ?>"><span

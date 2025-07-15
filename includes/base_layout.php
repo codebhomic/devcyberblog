@@ -18,7 +18,8 @@ $current_page = basename($_SERVER['PHP_SELF']);
 </head>
 
 <body>
-
+<div id="fb-root"></div>
+<script async defer crossorigin="anonymous" src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v23.0"></script></header>
     <header>
         <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
             <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
@@ -127,7 +128,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
     <?php } ?>
 
-    <!-- Main content will be here -->
+    <!-- Main content -->
     <?php echo $content; ?>
 
     <footer class="text-gray-600 dark:text-gray-200 dark:bg-gray-900 body-font">

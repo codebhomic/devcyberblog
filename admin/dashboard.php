@@ -46,22 +46,13 @@ ob_start();
             </div>
             <div class="card-body">
                 <div class="quick-actions">
-                    <a href="add_product.php" class="quick-action-item">
+                    <a href="add_blog_article.php" class="quick-action-item">
                         <div class="quick-action-icon">
                             <i class="fas fa-plus"></i>
                         </div>
                         <div class="quick-action-text">
-                            <h6>Add Product</h6>
-                            <p>Add a new product to your store</p>
-                        </div>
-                    </a>
-                    <a href="orders.php?status=pending" class="quick-action-item">
-                        <div class="quick-action-icon">
-                            <i class="fas fa-hourglass-half"></i>
-                        </div>
-                        <div class="quick-action-text">
-                            <h6>Pending Orders</h6>
-                            <p>Manage pending orders</p>
+                            <h6>Add New article</h6>
+                            <p>Add a new Article to your Blogs</p>
                         </div>
                     </a>
                     <a href="categories.php" class="quick-action-item">

@@ -3,9 +3,9 @@ error_reporting(E_ALL);
 ini_set('display_errors',1);
 
 $host = "localhost";
-$dbUsername = "root";
-$dbPassword = "";
-$dbName = "devcyberblog";
+$dbUsername = "ndnblgxq_bg";
+$dbPassword = "Khushi@123";
+$dbName = "ndnblgxq_blogbykb";
 
 // Database Configuration for coupons.php
 define('DB_HOST', $host);
