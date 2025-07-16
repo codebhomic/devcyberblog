@@ -1,4 +1,6 @@
 RewriteEngine On
-RewriteRule ^blog/([^/]+)$ article.php?slug=$1 [L,QSA]
-RewriteRule ^category/([^/]+)$ index.php?category=$1 [L,QSA]
-ErrorDocument 404 /dev_cyber_blog/error/404.php
+
+RewriteRule ^blog/([^/]+)$ /article.php?slug=$1 [L,QSA]
+RewriteRule ^category/([^/]+)$ /index.php?category=$1 [L,QSA]
+
+ErrorDocument 404 /error/404.php

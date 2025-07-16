@@ -1,9 +1,9 @@
 <?php
 // General
 define('SITE_NAME', 'Bug2Build');
-define('SITE_DOMAIN', 'blogbykb.istecgcmohali.in');
-define('SITE_URL', 'https://localhost/dev_cyber_blog/');
-define('SITE_EMAIL', 'admin@example.com');
+define('SITE_DOMAIN', 'bug2build.in');
+define('SITE_URL', 'https://bug2build.in/');
+define('SITE_EMAIL', 'support@bug2build.in');
 define('DEFAULT_LANGUAGE', 'en');
 define('TIMEZONE', 'UTC');
 
@@ -27,7 +27,7 @@ define('SMTP_USER', 'smtp_user');
 define('SMTP_PASSWORD', 'secret_password');
 
 // Blog/SEO
-define('DEFAULT_META_DESCRIPTION', 'This is my blog about amazing topics.');
+define('DEFAULT_META_DESCRIPTION', 'Get updates and blogs regarding cyber and devlopment related queries.');
 define('ARTICLES_PER_PAGE', 10);
 define('ENABLE_COMMENTS', true);
 define('ENABLE_TAGS', true);
