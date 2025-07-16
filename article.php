@@ -26,6 +26,7 @@ $stmt = mysqli_prepare($conn, "
         b.*, 
         u.full_name AS author_name, 
         c.name AS category_name, 
+        c.id AS category_id, 
         c.slug AS category_slug
     FROM blog_articles b
     LEFT JOIN blog_categories c ON b.category_id = c.id
@@ -43,9 +44,7 @@ mysqli_stmt_execute($stmt);
 
 $article_results = mysqli_stmt_get_result($stmt);
 $post = mysqli_fetch_assoc($article_results);
-
-// print_r($post);
-// die();
+$cid = $post['category_id'];
 if (!$post) {
     header($_SERVER["SERVER_PROTOCOL"] . " 400 Bad Request");
     error_page("404");
@@ -173,10 +172,10 @@ ob_start();
     <div class="px-4 mx-auto max-w-screen-2xl flex flex-col md:flex-row justify-center">
         <article class="format format-sm sm:format-base lg:format-lg format-blue dark:format-invert w-full md:w-2/3">
             <h1 class="text-2xl font-bold md:text-4xl py-4">
-                <?php echo htmlspecialchars($post['title']); ?>
+                <?= htmlspecialchars($post['title']); ?>
             </h1>
             <div id="content">
-                <?php echo $post['content']; ?>
+                <?= $post['content']; ?>
             </div>
             <footer class="mt-4 lg:mt-6 not-format">
                 <address class="flex items-center mb-6 not-italic">
@@ -184,32 +183,27 @@ ob_start();
                         <!-- <img class="mr-4 w-16 h-16 rounded-full" src="https://dummyimage.com/200" alt="Jese Leos"> -->
                         <div>
                             <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white">
-                                <?php echo htmlspecialchars($post['title']); ?>
+                                <?= htmlspecialchars($post['title']); ?>
                             </a>
-                            <p class="text-base text-gray-500 dark:text-gray-400">Graphic Designer, educator & CEO
-                                Flowbite</p>
+                            <!-- <p class="text-base text-gray-500 dark:text-gray-400">User About</p> -->
                             <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate datetime="2022-02-08"
-                                    title="February 8th, 2022">Feb. 8, 2022</time></p>
+                                    title="February 8th, 2022"><?= htmlspecialchars($post['updated_at']); ?></time></p>
                         </div>
                     </div>
                 </address>
-                <h1
-                    class="mb-4 text-3xl font-extrabold leading-tight text-gray-900 lg:mb-6 lg:text-4xl dark:text-white">
-                    Best practices for successful prototypes</h1>
             </footer>
-            <section class="not-format">
+            <!-- <section class="not-format">
                 <div class="flex justify-between items-center mb-6">
-                    <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (20)</h2>
+                    <h2 class="text-lg lg:text-5xl font-bold text-gray-900 dark:text-white">Discussions</h2>
                 </div>
                 
-                <div class=" bg-white text-black">
-                <div class="fb-comments" data-href="<?= SITE_URL.$_SERVER['REQUEST_URI'] ?>" data-width="" data-numposts="5"></div>
+                <div class="bg-white text-black">
                 </div>
-            </section>
+            </section> -->
         </article>
         <aside class="px-4 w-full md:w-1/3 sticky right-0">
             <!-- Search -->
-            <div class="mb-6">
+            <!-- <div class="mb-6">
                 <label for="search" class="sr-only">Search</label>
                 <div class="relative">
                     <input type="text" id="search" name="search" placeholder="Search articles..."
@@ -221,90 +215,99 @@ ob_start();
                         </svg>
                     </button>
                 </div>
-            </div>
+            </div> -->
             <!-- Author Info -->
             <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">
                 <div class="flex items-center space-x-4">
-                    <img class="w-12 h-12 rounded-full" src="https://dummyimage.com/200" alt="Author">
+                    <!-- <img class="w-12 h-12 rounded-full" src="https://dummyimage.com/200" alt="Author"> -->
                     <div>
-                        <h4 class="font-semibold dark:text-gray-100">John Doe</h4>
-                        <p class="text-sm text-gray-500 dark:text-gray-200">Editor-in-Chief</p>
+                        <h4 class="font-semibold dark:text-gray-300">Author: <span
+                                class="font-bold text-gray-100"><?= htmlspecialchars($post['author_name']); ?></span>
+                        </h4>
+                        <!-- <p class="text-sm text-gray-500 dark:text-gray-200">User Role</p> -->
                     </div>
                 </div>
-                <p class="mt-2 text-gray-600 dark:text-gray-200 text-sm">
-                    Passionate about writing clean code and clean prose.
-                </p>
+                <!-- <p class="mt-2 text-gray-600 dark:text-gray-200 text-sm">User Description</p> -->
             </div>
             <!-- Categories -->
             <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">
-                <h5 class="font-semibold mb-3 text-gray-800 dark:text-gray-200">Categories</h5>
+                <h5 class="font-semibold mb-3 text-gray-800 dark:text-gray-100">Categories</h5>
                 <ul class="space-y-2">
-                    <li><a href="#" class="text-blue-600 hover:underline">Technology</a></li>
-                    <li><a href="#" class="text-blue-600 hover:underline">Tutorials</a></li>
-                    <li><a href="#" class="text-blue-600 hover:underline">Business</a></li>
-                    <li><a href="#" class="text-blue-600 hover:underline">Design</a></li>
+                    <?php
+                    $cat_query = "SELECT * FROM blog_categories ORDER BY name";
+                    $cat_result = mysqli_query($conn, $cat_query);
+                    while ($category = mysqli_fetch_assoc($cat_result)) { ?>
+                        <li>
+                            <a href="<?= url_for("category/" . $category["slug"]) ?>"
+                                class="text-gray-600 capitalize dark:text-gray-200 hover:text-blue-600 dark:hover:text-blue-600">
+                                <?= $category["name"] ?>
+                            </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
             <!-- Recent Posts -->
-            <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">
-                <h5 class="font-semibold mb-3 text-gray-800 dark:text-gray-200">Recent Posts</h5>
-                <ul class="space-y-3">
-                    <li>
-                        <a href="#"
-                            class="flex items-start space-x-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2">
-                            <img src="https://dummyimage.com/200" class="w-12 h-12 rounded object-cover" alt="">
-                            <div>
-                                <h6 class="text-gray-800 dark:text-gray-200 font-medium leading-snug">How to Build a
-                                    Blog in Laravel
-                                </h6>
-                                <span class="text-xs text-gray-500 dark:text-gray-200">June 10, 2025</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#"
-                            class="flex items-start space-x-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2">
-                            <img src="https://dummyimage.com/200" class="w-12 h-12 rounded object-cover" alt="">
-                            <div>
-                                <h6 class="text-gray-800 dark:text-gray-200 font-medium leading-snug">10 Tailwind Tips
-                                    for Beginners
-                                </h6>
-                                <span class="text-xs text-gray-500 dark:text-gray-200">June 5, 2025</span>
-                            </div>
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <?php
+            // Fetch All Other Posts
+            $otherSql = "
+    SELECT
+        b.*, u.full_name AS author_name, c.name AS category_name, c.slug AS category_slug
+    FROM blog_articles b
+    LEFT JOIN blog_categories c ON b.category_id = c.id
+    LEFT JOIN users u ON b.author_id = u.id
+    WHERE b.is_published = 1 AND b.category_id = " . $post['category_id'] . "
+    ORDER BY b.id DESC;
+";
+            $otherResult = mysqli_query($conn, $otherSql);
+
+            ?>
+            <?php if ($otherResult && $otherResult->num_rows > 0): ?>
+                <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">
+                    <h5 class="font-semibold mb-3 text-gray-800 dark:text-gray-200">Recent Posts</h5>
+                    <ul class="space-y-3">
+
+                        <?php while ($post = $otherResult->fetch_assoc()): ?>
+
+                            <li>
+                                <a href="<?= url_for("blog/" . $post['slug']) ?>"
+                                    class="flex items-start space-x-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded p-2">
+                                    <img src="<?= get_image_src($post['cover_image_url']) ?>"
+                                        class="w-12 h-12 rounded object-cover" alt="">
+                                    <div>
+                                        <h6 class="text-gray-800 dark:text-gray-200 font-medium leading-snug">
+                                            <?= htmlspecialchars($post['title']); ?></h6>
+                                        <span
+                                            class="text-xs text-gray-500 dark:text-gray-200"><?= htmlspecialchars($post['updated_at']); ?></span>
+                                    </div>
+                                </a>
+                            </li>
+                        <?php endwhile; ?>
+                    </ul>
+                </div>
+            <?php endif; ?>
             <!-- Tag Cloud -->
-            <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4">
+            <!-- <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4">
                 <h5 class="font-semibold mb-3 text-gray-800 dark:text-gray-100">Tags</h5>
                 <div class="flex flex-wrap gap-2">
-                    <a href="#"
-                        class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">Laravel</a>
-                    <a href="#"
-                        class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">PHP</a>
-                    <a href="#"
-                        class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">Tailwind</a>
-                    <a href="#"
-                        class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">Tips</a>
-                    <a href="#"
-                        class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">JavaScript</a>
+                    <a href="#" class="text-gray-800 dark:text-gray-300 bg-gray-100 hover:bg-gray-200 dark:bg-gray-500 dark:hover:bg-gray-700 text-sm px-3 py-1 rounded">Laravel</a>
                 </div>
-            </div>
+            </div> -->
         </aside>
     </div>
 </main>
 <?php
 // Fetch All Other Posts
+
 $otherSql = "
     SELECT
         b.*, u.full_name AS author_name, c.name AS category_name, c.slug AS category_slug
     FROM blog_articles b
     LEFT JOIN blog_categories c ON b.category_id = c.id
     LEFT JOIN users u ON b.author_id = u.id
-    WHERE b.is_published = 1 AND b.category_id = 1
+    WHERE b.is_published = 1 AND b.category_id = " . $cid . "
     ORDER BY b.id DESC;
 ";
+
 $otherResult = mysqli_query($conn, $otherSql);
 
 // If no posts in the category, fallback
@@ -329,14 +332,14 @@ if (!$otherResult || $otherResult->num_rows === 0) {
             <div class="grid gap-12 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php while ($post = $otherResult->fetch_assoc()): ?>
                     <article class="max-w-sm">
-                        <a href="<?= url_for("blog/".$post['slug']) ?>">
-                            <img src="<?= $post['cover_image_url'] ?>" class="mb-5 rounded-lg" alt="Image 1">
+                        <a href="<?= url_for("blog/" . $post['slug']) ?>">
+                            <img src="<?= get_image_src($post['cover_image_url']) ?>" class="mb-5 rounded-lg" alt="Image 1">
                         </a>
                         <h2 class="mb-2 text-xl font-bold leading-tight text-gray-900 dark:text-white">
-                            <a href="<?= url_for("blog/".$post['slug']) ?>"><?= htmlspecialchars($post['title']); ?></a>
+                            <a href="<?= url_for("blog/" . $post['slug']) ?>"><?= htmlspecialchars($post['title']); ?></a>
                         </h2>
-                        <p class="mb-4 text-gray-700 dark:text-gray-200">
-                            <?= mb_strimwidth($post['content'], 0, 120, '...'); ?>
+                        <p class="mb-4 text-gray-700 dark:text-white">
+                            <?= mb_strimwidth($post['meta_description'], 0, 120, '...'); ?>
                         </p>
                         <a href="#"
                             class="inline-flex items-center font-medium hover:underline hover:underline-offset-4 text-indigo-600 dark:text-indigo-500 ">

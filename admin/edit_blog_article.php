@@ -4,7 +4,7 @@ require_once '../includes/helper.php';
 require_once '../includes/db_connect.php';
 
 // Check if user is logged in and is admin
-if (is_login(true)){
+if (!is_login(true)){
     $_SESSION["message"] = "User is already Login";
     redirect("admin/dashboard.php");
     exit();
@@ -212,10 +212,10 @@ ob_start();
             </div>
             <div class="card-body text-center">
                 <div class="image-preview mb-3">
-                    <img id="previewImage" src="<?= $row['cover_image_url'] ?>" class="img-fluid rounded"
-                        alt="Product Preview">
+                    <img id="previewImage" src="<?= get_image_src($row['cover_image_url']) ?>" class="img-fluid rounded"
+                        alt="Article Preview">
                 </div>
-                <p class="text-muted small">Preview of your product image</p>
+                <p class="text-muted small">Preview of your Article image</p>
             </div>
         </div>
 
@@ -227,7 +227,7 @@ ob_start();
                 <button type="submit" form="ArticleForm" class="btn btn-primary w-100 mb-3">
                     <i class="fas fa-plus-circle me-2"></i>Add Article
                 </button>
-                <a href="products.php" class="btn btn-outline-secondary w-100">
+                <a href="Articles.php" class="btn btn-outline-secondary w-100">
                     <i class="fas fa-times-circle me-2"></i>Cancel
                 </a>
             </div>
@@ -275,7 +275,7 @@ ob_start();
                     previewImage.src = 'https://dummyimage.com/300x300/000/fff?text=Invalid+Image+URL';
                 };
             } else {
-                previewImage.src = 'https://dummyimage.com/300x300/000/fff?text=Product+Image';
+                previewImage.src = 'https://dummyimage.com/300x300/000/fff?text=Article+Image';
             }
         });
     });

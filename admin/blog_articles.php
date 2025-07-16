@@ -93,22 +93,22 @@ ob_start();
                     ?>
                     <tr>
                         <td>
-                            <h6 class="mb-0"><?php echo substr($article['title'],0,20); ?></h6>
+                            <h6 class="mb-0"><?=substr($article['title'],0,20); ?></h6>
                         </td>
                         <td>
-                            <h6 class="mb-0"><?php echo substr($article['slug'],0,20); ?></h6>
+                            <h6 class="mb-0"><a href="<?= url_for("blog/".$article['slug']) ?>" target="_blank" rel="noopener noreferrer"><?=substr($article['slug'],0,20); ?></a></h6>
                         </td>
-                        <td><?php echo $article['is_published'] ? "Yes" : "No"; ?></td>
-                        <td><?php echo $article['is_published'] ? $article['published_at'] : "Not Published" ; ?></td>
-                        <td><?php echo $article['created_at']; ?></td>
+                        <td><?= $article['is_published'] ? "Yes" : "No"; ?></td>
+                        <td><?= $article['is_published'] ? $article['published_at'] : "Not Published" ; ?></td>
+                        <td><?= $article['created_at']; ?></td>
                         <td>
-                            <a href="edit_blog_article.php?id=<?php echo $article['id']; ?>" 
+                            <a href="edit_blog_article.php?id=<?=$article['id']; ?>" 
                                class="btn btn-sm btn-primary me-2">
                                 <i class="fas fa-edit"></i>
                             </a>
                             <form action="blog_articles.php" method="POST" class="d-inline" 
                                   onsubmit="return confirm('Are you sure you want to request for deleting article?');">
-                                <input type="hidden" name="article_id" value="<?php echo $article['id']; ?>">
+                                <input type="hidden" name="article_id" value="<?=$article['id']; ?>">
                                 <button type="submit" name="article_delete" class="btn btn-sm btn-danger">
                                     <i class="fas fa-trash"></i>
                                 </button>

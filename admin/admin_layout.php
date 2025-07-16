@@ -20,9 +20,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
     <link rel="stylesheet" href="<?= url_for("static/css/admin.css")?>">
-    <link rel="stylesheet" href="../richtexteditor/rte_theme_default.css" />
-<script type="text/javascript" src="../richtexteditor/rte.js"></script>
-<script type="text/javascript" src='../richtexteditor/plugins/all_plugins.js'></script>
+    <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
+<script type="text/javascript" src="richtexteditor/rte.js"></script>
+<script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
 </head>
 <body>
     <div class="container-fluid">
@@ -52,7 +52,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         </li>
                         <li class="nav-item">
                             <a class="nav-link <?php echo $current_page == 'contact_us.php' ? 'active' : ''; ?>" href="contact_us.php">
-                                 <i class="fa-solid fa-user"></i> Customer Requests
+                                 <i class="fa-solid fa-user"></i> Reader's Queries
                             </a>
                         </li>
                         <li class="nav-item">
@@ -90,7 +90,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <span class="theme-text">Dark</span>
                     </div>
                     <div class="nav-item">
-                            <a class="btn btn-primary mx-4 <?= $current_page == 'settings.php' ? 'active' : ''; ?>" href="<?= SITE_URL ?>">
+                            <a target="_blank" class="btn btn-primary mx-4 <?= $current_page == 'settings.php' ? 'active' : ''; ?>" href="<?= SITE_URL ?>">
                                 View Site
                             </a>
 </div>

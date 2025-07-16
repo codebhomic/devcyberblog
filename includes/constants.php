@@ -2,10 +2,15 @@
 // General
 define('SITE_NAME', 'Bug2Build');
 define('SITE_DOMAIN', 'bug2build.in');
-define('SITE_URL', 'https://bug2build.in/');
+define('SITE_URL', 'http://localhost/dev_cyber_blog/');
 define('SITE_EMAIL', 'support@bug2build.in');
 define('DEFAULT_LANGUAGE', 'en');
-define('TIMEZONE', 'UTC');
+define('SITE_DESCREPTION', 'Get updates and blogs regarding cyber and devlopment related queries.');
+
+define('DBHOST', '');
+define('DBUSERNAME', '');
+define('DBPASSWORD', '');
+define('DBNAME', '');
 
 // Paths
 define('UPLOAD_PATH', __DIR__ . '/../uploads/');

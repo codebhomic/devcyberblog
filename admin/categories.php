@@ -75,20 +75,20 @@ ob_start();
 <div class="row">
     <!-- Category Form -->
     <div >
-        <div class="card animate__animated animate__fadeIn">
+        <div class="card animate__animated animate__fadeIn" >
             <div class="card-header">
-                <h5><i class="fas fa-<?php echo $edit_category ? 'edit' : 'plus'; ?> me-2"></i><?php echo $edit_category ? 'Edit Category' : 'Add New Category'; ?></h5>
+                <h5><i class="fas fa-<?= $edit_category ? 'edit' : 'plus'; ?> me-2"></i><?= $edit_category ? 'Edit Category' : 'Add New Category'; ?></h5>
             </div>
             <div class="card-body">
                 <form action="categories.php" method="POST">
                     <?php if($edit_category) { ?>
-                        <input type="hidden" name="category_id" value="<?php echo $edit_category['id']; ?>">
+                        <input type="hidden" name="category_id" value="<?= $edit_category['id']; ?>">
                     <?php } ?>
                     
                     <div class="mb-3">
                         <label class="form-label">Category Name</label>
                         <input type="text" class="form-control" name="name" 
-                               value="<?php echo $edit_category ? $edit_category['name'] : ''; ?>" required>
+                               value="<?= $edit_category ? $edit_category['name'] : ''; ?>" required>
                     </div>
                     
                     <div class="mb-3">
@@ -101,18 +101,16 @@ ob_start();
                     <div class="mb-3">
                         <label class="form-label">Image URL</label>
                         <input type="url" class="form-control" name="image" 
-                               value="<?php echo $edit_category ? $edit_category['image'] : ''; ?>" required>
+                               value="<?= $edit_category ? $edit_category['image'] : ''; ?>" required>
                         <?php if($edit_category && $edit_category['image']) { ?>
                             <div class="mt-2">
-                                <img src="<?php echo $edit_category['image']; ?>" class="img-thumbnail" style="height: 100px;">
+                                <img src="<?= $edit_category['image']; ?>" class="img-thumbnail" style="height: 100px;">
                             </div>
                         <?php } ?>
                     </div>
                     
                     <div class="mb-3">
                         <label class="form-label">Slug</label>
-
-                        <label class="form-label">Image URL</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="slug" id="slug" value="<?= $edit_category ? $edit_category['slug'] : "" ?>"
                                 required>
@@ -120,7 +118,7 @@ ob_start();
                     </div>
                     <div class="d-flex">
                         <button type="submit" name="save_category" class="btn btn-primary">
-                            <?php echo $edit_category ? 'Update Category' : 'Add Category'; ?>
+                            <?= $edit_category ? 'Update Category' : 'Add Category'; ?>
                         </button>
                         
                         <?php if($edit_category) { ?>
@@ -146,6 +144,7 @@ ob_start();
                             <tr>
                                 <th>Image</th>
                                 <th>Name</th>
+                                <th>Slug</th>
                                 <th>Description</th>
                                 <th>Actions</th>
                             </tr>
@@ -157,21 +156,22 @@ ob_start();
                             ?>
                             <tr>
                                 <td>
-                                    <img src="<?php echo $category['image']; ?>" 
+                                    <img src="<?= $category['image']; ?>" 
                                          class="category-image rounded" 
-                                         alt="<?php echo $category['name']; ?>">
+                                         alt="<?= $category['name']; ?>">
                                 </td>
-                                <td><?php echo $category['name']; ?></td>
-                                <td><?php echo substr($category['description'], 0, 100); ?><?php echo strlen($category['description']) > 100 ? '...' : ''; ?></td>
+                                <td><?= $category['name']; ?></td>
+                                <td><a href="<?= url_for("category/".$category['slug']) ?>" target="_blank" rel="noopener noreferrer"><?= $category['slug']; ?></a></td>
+                                <td><?= substr($category['description'], 0, 100); ?><?= strlen($category['description']) > 100 ? '...' : ''; ?></td>
                                 <td>
-                                    <a href="categories.php?edit=<?php echo $category['id']; ?>" 
+                                    <a href="categories.php?edit=<?= $category['id']; ?>" 
                                        class="btn btn-sm btn-primary me-2">
                                         <i class="fas fa-edit"></i>
                                     </a>
                                     <form action="categories.php" method="POST" class="d-inline" 
                                           onsubmit="return confirm('Are you sure you want to delete this category?');">
                                         <input type="hidden" name="category_id" 
-                                               value="<?php echo $category['id']; ?>">
+                                               value="<?= $category['id']; ?>">
                                         <button type="submit" name="delete_category" 
                                                 class="btn btn-sm btn-danger">
                                             <i class="fas fa-trash"></i>

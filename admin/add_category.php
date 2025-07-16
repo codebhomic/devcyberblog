@@ -114,8 +114,6 @@ ob_start();
 
                     <div class="mb-3">
                         <label class="form-label">Slug</label>
-
-                        <label class="form-label">Image URL</label>
                         <div class="input-group">
                             <input type="text" class="form-control" name="slug" id="slug" value="<?= $row['slug'] ?>"
                                 required>

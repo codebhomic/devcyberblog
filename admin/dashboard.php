@@ -61,7 +61,7 @@ ob_start();
                         </div>
                         <div class="quick-action-text">
                             <h6>Categories</h6>
-                            <p>Manage product categories</p>
+                            <p>Manage categories</p>
                         </div>
                     </a>
                 </div>
