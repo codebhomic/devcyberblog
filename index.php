@@ -73,7 +73,7 @@ ob_start();
                             <img src="<?= get_image_src($post['cover_image_url']) ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
-                            <a href="<?php echo url_for("categories.php/blog/".htmlspecialchars($post['category_slug'])); ?>"><span
+                            <a href="<?= url_for("categories/".htmlspecialchars($post['category_slug'])); ?>"><span
                                 class="bg-indigo-100 capitalize text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-800">
                                 <?php echo htmlspecialchars($post['category_name']); ?>
                             </span></a>
@@ -134,7 +134,7 @@ ob_start();
                             <img src="<?= get_image_src($post['cover_image_url']) ?>" alt="image" class="h-96 w-full mb-4">
                         </div>
                         <div class="flex justify-between items-center mb-5 text-gray-500">
-                            <a href="categories.php/blog/<?php echo htmlspecialchars($post['category_slug']); ?>"><span
+                            <a href="<?= url_for("categories/".$post['category_slug']); ?>"><span
                                 class="bg-indigo-100 capitalize text-indigo-800 text-xs font-medium inline-flex items-center px-2.5 py-0.5 rounded dark:bg-indigo-200 dark:text-indigo-800">
                                 <?php echo htmlspecialchars($post['category_name']); ?>
                             </span></a>
