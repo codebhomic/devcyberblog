@@ -2,7 +2,7 @@
 // General
 define('SITE_NAME', 'Bug2Build');
 define('SITE_DOMAIN', 'bug2build.in');
-define('SITE_URL', 'http://localhost/dev_cyber_blog/');
+define('SITE_URL', 'https://bug2build.in/');
 define('SITE_EMAIL', 'support@bug2build.in');
 define('DEFAULT_LANGUAGE', 'en');
 define('SITE_DESCREPTION', 'Get updates and blogs regarding cyber and devlopment related queries.');
