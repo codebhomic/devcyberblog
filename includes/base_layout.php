@@ -10,6 +10,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="google-site-verification" content="f56RNLwvR1rnp5bwPO1rH-lCYvkSqXnOkB6Yo41OIUo" />
     <title><?= $page_title; ?> - <?= SITE_NAME ?></title>
     <link rel="apple-touch-icon" sizes="180x180" href="<?= url_for('static/apple-touch-icon.png') ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= url_for('static/favicon-32x32.png') ?>">
