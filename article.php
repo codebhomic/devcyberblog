@@ -182,9 +182,7 @@ ob_start();
                     <div class="inline-flex items-center mr-3 text-sm text-gray-900 dark:text-white">
                         <!-- <img class="mr-4 w-16 h-16 rounded-full" src="https://dummyimage.com/200" alt="Jese Leos"> -->
                         <div>
-                            <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white">
-                                <?= htmlspecialchars($post['title']); ?>
-                            </a>
+                            <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white"><?= htmlspecialchars($post['title']); ?></a>
                             <!-- <p class="text-base text-gray-500 dark:text-gray-400">User About</p> -->
                             <p class="text-base text-gray-500 dark:text-gray-400"><time pubdate datetime="2022-02-08"
                                     title="February 8th, 2022"><?= htmlspecialchars($post['updated_at']); ?></time></p>
@@ -218,16 +216,15 @@ ob_start();
             </div> -->
             <!-- Author Info -->
             <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">
-                <div class="flex items-center space-x-4">
-                    <!-- <img class="w-12 h-12 rounded-full" src="https://dummyimage.com/200" alt="Author"> -->
+                <a href="#" rel="author" class="text-xl font-bold text-gray-900 dark:text-white"><?= htmlspecialchars($post['title']); ?></a>
+                <div class="flex items-center space-x-4 mt-4">
+                    <img class="w-12 h-12 rounded-full" src="<?= url_for("static/user-avatar.png")?>" alt="Author">
                     <div>
-                        <h4 class="font-semibold dark:text-gray-300">Author: <span
-                                class="font-bold text-gray-100"><?= htmlspecialchars($post['author_name']); ?></span>
+                        <h4 class="font-semibold dark:text-gray-300">Author: <span class="font-bold text-gray-100"><?= htmlspecialchars($post['author_name']); ?></span>
                         </h4>
-                        <!-- <p class="text-sm text-gray-500 dark:text-gray-200">User Role</p> -->
+                        <p class="text-sm text-gray-500 dark:text-gray-200"><?= htmlspecialchars($post['updated_at']); ?></p>
                     </div>
                 </div>
-                <!-- <p class="mt-2 text-gray-600 dark:text-gray-200 text-sm">User Description</p> -->
             </div>
             <!-- Categories -->
             <div class="bg-white dark:bg-gray-900 border border-gray-200 rounded-lg p-4 mb-6">

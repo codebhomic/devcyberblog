@@ -4,3 +4,4 @@ RewriteRule ^blog/([^/]+)$ article.php?slug=$1 [L,QSA]
 RewriteRule ^category/([^/]+)$ index.php?category=$1 [L,QSA]
 
 ErrorDocument 404 error/404.php
+ErrorDocument 400 error/400.php

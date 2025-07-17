@@ -2,10 +2,10 @@
 error_reporting(E_ALL);
 ini_set('display_errors',1);
 require_once "constants.php";
-$host = DBHOST ? DBHOST : "localhost";
-$dbUsername = DBUSERNAME ? DBUSERNAME : "root";
-$dbPassword = DBPASSWORD ? DBPASSWORD : "";
-$dbName = DBNAME ? DBNAME : "devcyberblog";
+$host = "localhost";
+$dbUsername = "root";
+$dbPassword = "";
+$dbName = "devcyberblog";
 
 $conn = new mysqli($host, $dbUsername, $dbPassword, $dbName);
 

@@ -15,7 +15,7 @@ ob_start();
     <p class="text-gray-600 dark:text-gray-300 mb-8">
       Welcome to our blog! We are a team of three friends dedicated to sharing knowledge, ideas, and inspiration. Each of us brings a unique perspective and voice to our articles.
     </p>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+    <div class="grid grid-cols-1 gap-6 max-w-lg mx-auto">
       <!-- Author 1 -->
       <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition">
         <!-- <img
@@ -45,19 +45,19 @@ ob_start();
         </p>
       </div>
       <!-- Author 3 -->
-      <!-- <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition">
-        <img
+      <div class="bg-gray-50 dark:bg-gray-800 rounded-lg p-6 shadow hover:shadow-lg transition">
+        <!-- <img
           src="https://via.placeholder.com/120"
           alt="Author 3"
           class="w-24 h-24 mx-auto rounded-full mb-4"
-        /> 
+        />  -->
         <h3 class="text-xl font-semibold text-gray-800 dark:text-gray-100">
           Author 3
         </h3>
         <p class="text-sm text-gray-600 dark:text-gray-300 mt-2">
           Sharing stories and personal experiences.
         </p>
-      </div> -->
+      </div>
     </div>
   </div>
 </section>
