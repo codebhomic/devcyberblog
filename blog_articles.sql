@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 16, 2025 at 01:01 PM
+-- Generation Time: Jul 22, 2025 at 01:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.4.8
 
@@ -38,21 +38,13 @@ CREATE TABLE `blog_articles` (
   `meta_description` text DEFAULT NULL,
   `meta_keywords` varchar(255) DEFAULT NULL,
   `cover_image_url` text DEFAULT NULL,
-  `is_deleted` int(10) DEFAULT NULL,
+  `is_deleted` tinyint(1) DEFAULT 0,
   `published_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `is_published` tinyint(1) DEFAULT 0,
   `is_featured` tinyint(1) DEFAULT 0,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `blog_articles`
---
-
-INSERT INTO `blog_articles` (`id`, `title`, `slug`, `author_id`, `category_id`, `content`, `meta_title`, `meta_description`, `meta_keywords`, `cover_image_url`, `is_deleted`, `published_at`, `is_published`, `is_featured`, `created_at`, `updated_at`) VALUES
-(1, 'What is a Website? How Websites Work and How to Create One Easily', 'what-is-a-website-how-websites-work-and-how-to-create-one-easily-37002', 2, 1, '<div>\r\n\r\n\r\n<h3>What is a Website?</h3>\r\n<p>A <strong>website</strong> is a collection of related web pages that are stored on a special computer called a <strong>web server</strong>. These web pages can include text, images, videos, forms, and interactive features. You can access a website using any device with a web browser (like Chrome, Firefox, or Safari) and an internet connection.</p>\r\n<p>Each website has a unique address called a <strong>domain name</strong> (for example, <code>www.example.com</code>). When you enter this address into your browser, the browser requests the website’s content from the server, and the server sends back the necessary files to display the web pages on your screen.</p>\r\n<hr />\r\n<h3>How Does a Website Run?</h3>\r\n<p>Here’s a simplified overview of how a website works behind the scenes:</p>\r\n<ol>\r\n<li>\r\n<p><strong>Domain Name Resolution</strong></p>\r\n<ul>\r\n<li>\r\n<p>You type the website address into your browser.</p>\r\n</li>\r\n<li>\r\n<p>The domain name is translated into an IP address by the DNS (Domain Name System).</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p><strong>Request to the Server</strong></p>\r\n<ul>\r\n<li>\r\n<p>Your browser sends a request over the internet to the web server that hosts the website.</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p><strong>Server Response</strong></p>\r\n<ul>\r\n<li>\r\n<p>The server processes the request and sends back the website files (HTML, CSS, JavaScript, images).</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p><strong>Rendering</strong></p>\r\n<ul>\r\n<li>\r\n<p>Your browser reads these files and displays the web pages in a format you can see and interact with.</p>\r\n</li>\r\n</ul>\r\n</li>\r\n<li>\r\n<p><strong>Interactivity</strong></p>\r\n<ul>\r\n<li>\r\n<p>JavaScript and other scripts allow the website to respond to your clicks, form submissions, and other actions.</p>\r\n</li>\r\n</ul>\r\n</li>\r\n</ol>\r\n<hr />\r\n<h3>How to Create a Website</h3>\r\n<p>Creating a website involves several steps. Here’s a simple guide to get you started:</p>\r\n<p>✅ <strong>1. Choose a Purpose</strong><br />\r\nDecide what your website will be about—a blog, portfolio, business site, or online store.</p>\r\n<p>✅ <strong>2. Register a Domain Name</strong><br />\r\nPurchase a unique domain name that represents your brand or idea.</p>\r\n<p>✅ <strong>3. Get Web Hosting</strong><br />\r\nSign up with a hosting provider to store your website files and make them accessible online.</p>\r\n<p>✅ <strong>4. Design Your Website</strong><br />\r\nYou can:</p>\r\n<ul>\r\n<li>\r\n<p>Use a website builder (like Wix, Squarespace, or WordPress) for ease of use.</p>\r\n</li>\r\n<li>\r\n<p>Code manually with HTML, CSS, and JavaScript for more control and customization.</p>\r\n</li>\r\n</ul>\r\n<p>✅ <strong>5. Create Web Pages</strong><br />\r\nDevelop the core pages (Home, About, Contact, etc.). Use:</p>\r\n<ul>\r\n<li>\r\n<p><strong>HTML</strong> to structure the content.</p>\r\n</li>\r\n<li>\r\n<p><strong>CSS</strong> to style the appearance.</p>\r\n</li>\r\n<li>\r\n<p><strong>JavaScript</strong> to add interactivity.</p>\r\n</li>\r\n</ul>\r\n<p>✅ <strong>6. Test and Launch</strong><br />\r\nPreview your website on different devices and browsers to ensure it works correctly. Once ready, publish it live.</p>\r\n<p>✅ <strong>7. Maintain and Update</strong><br />\r\nRegularly update your website with fresh content, security patches, and improvements.</p>\r\n<hr />\r\n<h3>Final Thoughts</h3>\r\n<p>Websites are the backbone of the internet, enabling people and businesses to share information, offer services, and connect globally. With modern tools and resources, creating a website has become more accessible than ever—even if you’re just getting started.</p></div>', 'What is a Website? How It Works & Steps to Build One', 'Learn what a website is, how it works behind the scenes, and how you can create your own website step by step using modern web technologies.', NULL, '/static/website_development.jpg', 0, '2025-07-15 15:15:12', 1, 1, '2025-07-03 12:59:02', '2025-07-03 12:59:02');
-
 -- --------------------------------------------------------
 
 --
@@ -79,14 +71,6 @@ CREATE TABLE `blog_categories` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `blog_categories`
---
-
-INSERT INTO `blog_categories` (`id`, `name`, `slug`, `image`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'web development', 'web-development', 'http://localhost/dev_cyber_blog/static/website_development.jpg', '<p><strong>Web Development</strong>, also known as <strong>Website Development</strong>, is the process of creating websites and web applications that you can access over the internet.</p>\r\n\r\n\r\n<p>But wait—<strong>what is a website?</strong></p>\r\n\r\n\r\n<p>A <strong>website</strong> is a collection of interlinked <strong>web pages</strong> that are stored on a computer called a <strong>server</strong>. You can visit a website using your web browser, which communicates with the server through special internet protocols such as <strong>HTTP</strong> or <strong>HTTPS</strong>.</p>\r\n\r\n\r\n<p>These web pages aren’t just plain text. They are built using a combination of languages and technologies:</p>\r\n\r\n\r\n<ul>\r\n<li>\r\n<p><strong>HTML (Hypertext Markup Language)</strong> provides the basic structure and content of a page.</p>\r\n</li>\r\n<li>\r\n<p><strong>CSS (Cascading Style Sheets)</strong> controls how the page looks—its layout, colors, and fonts.</p>\r\n</li>\r\n<li>\r\n<p><strong>JavaScript</strong> adds interactivity, allowing web pages to respond dynamically to user actions.</p>\r\n</li>\r\n</ul>\r\n\r\n\r\n<p>Together, these technologies enable developers to create everything from simple static websites to complex, dynamic web applications that power today’s digital world.</p>', '2025-07-03 21:49:08', '2025-07-03 23:08:05'),
-(2, 'category', 'category-name', 'https://dummyimage.com/200', '<p>category</p>', '2025-07-08 00:47:42', '2025-07-08 00:55:08');
 
 -- --------------------------------------------------------
 
@@ -274,7 +258,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `blog_articles`
 --
 ALTER TABLE `blog_articles`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `blog_categories`
