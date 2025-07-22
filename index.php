@@ -10,7 +10,7 @@ $featuredSql = "SELECT b.*, u.full_name AS author_name, c.name AS category_name,
     FROM blog_articles b
     LEFT JOIN users u ON b.author_id = u.id
     LEFT JOIN blog_categories c ON b.category_id =c.id
-    WHERE b.is_featured = 1 AND b.is_published = 1 AND b.is_deleted = 0
+    WHERE b.is_featured = 1 AND b.is_published = 1 AND b.is_deleted != 1
     ORDER BY b.id DESC
     LIMIT 5";
 
@@ -29,7 +29,7 @@ if ($categorySlug) {
         FROM blog_articles b
         LEFT JOIN blog_categories c ON b.category_id = c.id
         LEFT JOIN users u ON b.author_id = u.id
-        WHERE b.is_published = 1 AND c.slug = ? AND b.is_deleted = 0
+        WHERE b.is_published = 1 AND c.slug = ? AND b.is_deleted != 1
         ORDER BY b.id DESC
     ";
     $stmt = $conn->prepare($otherSql);
@@ -46,7 +46,7 @@ if ($categorySlug) {
         FROM blog_articles b
         LEFT JOIN blog_categories c ON b.category_id = c.id
         LEFT JOIN users u ON b.author_id = u.id
-        WHERE b.is_published = 1 AND b.is_deleted = 0
+        WHERE b.is_published = 1 AND b.is_deleted != 1
         ORDER BY b.id DESC
     ";
     $otherResult = mysqli_query($conn, $otherSql);

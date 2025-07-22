@@ -252,7 +252,7 @@ ob_start();
     FROM blog_articles b
     LEFT JOIN blog_categories c ON b.category_id = c.id
     LEFT JOIN users u ON b.author_id = u.id
-    WHERE b.is_published = 1 AND b.category_id = " . $post['category_id'] . "
+    WHERE b.is_published = 1 AND b.is_deleted != 1 AND b.category_id = " . $post['category_id'] . "
     ORDER BY b.id DESC;
 ";
             $otherResult = mysqli_query($conn, $otherSql);
@@ -301,7 +301,7 @@ $otherSql = "
     FROM blog_articles b
     LEFT JOIN blog_categories c ON b.category_id = c.id
     LEFT JOIN users u ON b.author_id = u.id
-    WHERE b.is_published = 1 AND b.category_id = " . $cid . "
+    WHERE b.is_published = 1 AND b.is_deleted != 1 AND b.category_id = " . $cid . "
     ORDER BY b.id DESC;
 ";
 
@@ -315,7 +315,7 @@ if (!$otherResult || $otherResult->num_rows === 0) {
         FROM blog_articles b
         LEFT JOIN blog_categories c ON b.category_id = c.id
         LEFT JOIN users u ON b.author_id = u.id
-        WHERE b.is_published = 1
+        WHERE b.is_published = 1 AND b.is_deleted != 1
         ORDER BY b.id DESC;
     ";
     $otherResult = mysqli_query($conn, $otherSql);
