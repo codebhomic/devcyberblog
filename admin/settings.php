@@ -1,8 +1,5 @@
     <?php
-    
-require_once '../includes/helper.php';
-error_page(404);
-exit();
+    /*
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['toggle_maintenance'] === "true" ? 'true' : 'false';
 
@@ -17,6 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 $config = file_exists("includes/maintenance.php") ? include('includes/maintenance.php') : include('../includes/maintenance.php');
 $is_checked = $config['maintenance_mode'] ? "checked" : ""
+*/
 ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <?php
@@ -71,42 +69,44 @@ ob_start();
         input:checked + .slider:before { transform: translateX(26px); }
     </style>
     <div class="container">
-            <h2>Toggle Maintenance Mode</h2>
-                <span>OFF</span>
+            <h2>User Settings Page</h2>
+            <p>Feature in Progress</p>
+            <!-- <h2>Toggle Maintenance Mode</h2> -->
+                <!-- <span>OFF</span>
                 <label class="switch">
                     <input id="maintenance_toggle" type="checkbox" name="toggle_maintenance" <?= $is_checked ?>>
                     <span class="slider"></span>
                 </label>
                 <span>ON</span>
-            <p>Status: <span id="status_text"><?= $config['maintenance_mode'] ? 'ON' : 'OFF' ?></span></p>
+            <p>Status: <span id="status_text"><?= $config['maintenance_mode'] ? 'ON' : 'OFF' ?></span></p> -->
 
         </div>
 </div>
 
 </div>
  <script>
-       document.addEventListener("DOMContentLoaded", function () {
-            const toggleSwitch = document.getElementById("maintenance_toggle");
-            const statusText = document.getElementById("status_text");
+    //    document.addEventListener("DOMContentLoaded", function () {
+    //         const toggleSwitch = document.getElementById("maintenance_toggle");
+    //         const statusText = document.getElementById("status_text");
 
-            toggleSwitch.addEventListener("change", function () {
-                console.log(toggleSwitch.checked);
-                let status = toggleSwitch.checked ? "true" : "false";
+    //         toggleSwitch.addEventListener("change", function () {
+    //             console.log(toggleSwitch.checked);
+    //             let status = toggleSwitch.checked ? "true" : "false";
 
-                fetch(window.location.href, { 
-                    method: "POST",
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: "toggle_maintenance=" + status
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        statusText.textContent = data.status === "true" ? "ON" : "OFF";
-                    }
-                })
-                .catch(error => console.error("Error:", error));
-            });
-        });
+    //             fetch(window.location.href, { 
+    //                 method: "POST",
+    //                 headers: { "Content-Type": "application/x-www-form-urlencoded" },
+    //                 body: "toggle_maintenance=" + status
+    //             })
+    //             .then(response => response.json())
+    //             .then(data => {
+    //                 if (data.success) {
+    //                     statusText.textContent = data.status === "true" ? "ON" : "OFF";
+    //                 }
+    //             })
+    //             .catch(error => console.error("Error:", error));
+    //         });
+    //     });
     </script>
 <?php
 // Get the buffered content
