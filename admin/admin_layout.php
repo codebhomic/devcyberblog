@@ -37,7 +37,9 @@ $current_page = basename($_SERVER['PHP_SELF']);
             <!-- Sidebar -->
             <div class="col-lg-2 col-md-2 px-0 sidebar" id="sidebar">
                 <div class="logo-wrapper">
-                    <i class="fas fa-paint-brush logo-icon"></i>
+                    <span class="mobile-toggle" id="sidebarTogglecross">
+                        <i class="fas fa-x"></i>
+                    </span>
                     <h5>Admin Panel</h5>
                 </div>
                 <div class="nav-container">
@@ -51,7 +53,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <li class="nav-item">
                             <a class="nav-link <?php echo $current_page == 'blog_articles.php' || $current_page == 'add_blog_article.php' || $current_page == 'edit_blog_article.php' ? 'active' : ''; ?>"
                                 href="blog_articles.php">
-                                <i class="fas fa-paint-brush"></i> Blog Articles
+                                <i class="fas fa-box"></i> Blog Articles
                             </a>
                         </li>
                         <li class="nav-item">
@@ -171,6 +173,19 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     document.getElementById('sidebar').classList.toggle('show');
                 });
             }
+            const sidebarToggleCross = document.getElementById('sidebarTogglecross');
+            if (sidebarToggleCross) {
+                sidebarToggleCross.addEventListener('click', function () {
+                    document.getElementById('sidebar').classList.toggle('show');
+                });
+            }
+
+            document.addEventListener('click', function (e) {
+                // Close sidebar if clicked outside
+                if (!document.getElementById('sidebar').contains(e.target) && !sidebarToggle.contains(e.target)) {
+                    document.getElementById('sidebar').classList.remove('show');
+                }
+            });
 
             // Apply theme to any dynamically loaded content
             applyThemeToElements();
