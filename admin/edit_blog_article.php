@@ -159,7 +159,7 @@ ob_start();
                         </div>
                         <div class="col-md-6">
                             <label class="form-label">Image URL</label>
-                            <input type="url" value="<?= $row['cover_image_url'] ?>" class="form-control"
+                            <input type="text" value="<?= $row['cover_image_url'] ?>" class="form-control"
                                 name="cover_image_url" id="imageUrl" required>
                             <small class="text-muted">Enter a valid image URL</small>
                         </div>
@@ -294,7 +294,37 @@ ob_start();
         const slug = slugify(rawTitle) + "-" + random;
         document.getElementById("slug").value = slug;
     });
-    var editor1 = new RichTextEditor("#edit_description");
+      var editor1 = new RichTextEditor("#edit_description",{
+        imageUploadUrl: "<?= url_for('admin/upload_image.php')?>",
+         allowImageUpload: true,
+    allowImageRemoteUrl: false,
+    });
+    window.rte_file_upload_handler = function (file, callback, optionalIndex, optionalFiles) {
+    var formData = new FormData();
+    formData.append("file", file);
+
+    var xhr = new XMLHttpRequest();
+    xhr.open("POST", "upload_image.php", true); // Your PHP endpoint
+
+    xhr.onload = function () {
+        if (xhr.status === 200) {
+            var res = JSON.parse(xhr.responseText);
+            if (res.success) {
+                callback(res.url); // 👈 Tells editor the URL of uploaded file
+            } else {
+                callback(null, res.error || "Upload failed");
+            }
+        } else {
+            callback(null, "Server error: " + xhr.status);
+        }
+    };
+
+    xhr.onerror = function () {
+        callback(null, "XHR error occurred");
+    };
+
+    xhr.send(formData);
+};
 </script>
 <?php
 // Get the buffered content

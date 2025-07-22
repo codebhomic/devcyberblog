@@ -15,95 +15,102 @@ $current_page = basename($_SERVER['PHP_SELF']);
     <link rel="apple-touch-icon" sizes="180x180" href="<?= url_for('static/apple-touch-icon.png') ?>">
     <link rel="icon" type="image/png" sizes="32x32" href="<?= url_for('static/favicon-32x32.png') ?>">
     <link rel="icon" type="image/png" sizes="16x16" href="<?= url_for('static/favicon-16x16.png') ?>">
-    <!-- <link rel="manifest" href="/site.webmanifest"> -->
+    <link rel="manifest" href="<?= url_for('static/site.webmanifest') ?>">
     <script src="<?= url_for("static/js/tailwind.config.js"); ?>"></script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.css" rel="stylesheet" />
 </head>
+<?php
+/*
+                if (!is_login()):
+                    ?>
+                    <a href="<?= url_for("login.php") ?>"
+                        class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
+                        Log in</a>
+                <?php else: ?>
+                    <a href="<?= url_for("admin/dashboard.php") ?>"
+                        class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
+                        dashboard</a>
+                <?php endif; */
+?>
 
 <body>
     <div id="fb-root"></div>
     <script async defer crossorigin="anonymous"
         src="https://connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v23.0"></script>
-    </header>
     <header>
-        <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
-            <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
-                <a href="<?= url_for("index.php"); ?>" class="flex items-center">
-                    <!-- <img src="https://flowbite.com/docs/images/logo.svg" class="mr-3 h-6 sm:h-9" alt="Flowbite Logo" /> -->
-                    <span
-                        class="self-center text-xl font-semibold whitespace-nowrap text-black dark:text-white"><?= SITE_NAME ?></span>
-                </a>
-                <div class="flex items-center lg:order-2">
-                    <?php
-                    if (!is_login()):
-                        ?>
-                        <a href="<?= url_for("login.php") ?>"
-                            class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
-                            Log in</a>
-                    <?php else: ?>
-                        <a href="<?= url_for("admin/dashboard.php") ?>"
-                            class="text-gray-800 border-2 border-indigo-500 dark:text-white hover:bg-indigo-50 focus:ring-4 focus:ring-indigo-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:hover:bg-indigo-700 focus:outline-none dark:focus:ring-indigo-800">
-                            dashboard</a>
-                    <?php endif; ?>
-                    <!-- <a href="#" class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-4 lg:px-5 py-2 lg:py-2.5 mr-2 dark:bg-primary-600 dark:hover:bg-primary-700 focus:outline-none dark:focus:ring-primary-800">
-                        </a> -->
-                </div>
-                <div class="hidden justify-between items-center w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
-                    <ul class="flex flex-col mt-4 font-medium lg:flex-row lg:space-x-8 lg:mt-0">
-                        <li>
-                            <a href="<?= url_for("index.php"); ?>"
-                                class="block py-2 pr-4 pl-3 text-white rounded bg-primary-700 lg:bg-transparent lg:text-primary-700 lg:p-0 dark:text-white"
-                                aria-current="page">Home</a>
-                        </li>
-                        <li>
-                            <a href="<?= url_for("about.php") ?>"
-                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">About
-                                Us</a>
-                        </li>
-                        <li>
-                            <a href="#" id="categoriesDropdown" data-dropdown-toggle="dropdown"
-                                data-dropdown-trigger="hover"
-                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Categories
-                                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m1 1 4 4 4-4" />
-                                </svg>
-                            </a>
-                            <!-- Dropdown menu -->
-                            <div id="dropdown"
-                                class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700">
-                                <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
-                                    aria-labelledby="categoriesDropdown">
-                                    <?php
-                                    $cat_query = "SELECT * FROM blog_categories ORDER BY name";
-                                    $cat_result = mysqli_query($conn, $cat_query);
-                                    while ($category = mysqli_fetch_assoc($cat_result)) { ?>
-                                        <li>
-                                            <a href="<?= url_for("category/" . $category["slug"]) ?>"
-                                                class="block px-4 capitalize py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
-                                                <?= $category["name"] ?>
-                                            </a>
-                                        </li>
-                                    <?php } ?>
-                                </ul>
-                            </div>
+  <nav class="bg-white border-gray-200 px-4 lg:px-6 py-2.5 dark:bg-gray-800">
+    <div class="flex flex-wrap justify-between items-center mx-auto max-w-screen-xl">
+      <!-- Logo -->
+      <a href="<?= url_for('index.php'); ?>" class="flex items-center">
+        <span class="self-center text-xl font-semibold whitespace-nowrap text-black dark:text-white"><?= SITE_NAME ?></span>
+      </a>
 
-                        </li>
-                        <!-- <li>
-                            <a href="#"
-                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Our
-                                Team</a>
-                        </li> -->
-                        <li>
-                            <a href="<?= url_for("contact.php") ?>"
-                                class="block py-2 pr-4 pl-3 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-primary-700 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700">Contact
-                                Us</a>
-                        </li>
-                    </ul>
-                </div>
+      <!-- Mobile menu button (hamburger) -->
+      <button data-collapse-toggle="mobile-menu-2" type="button"
+        class="inline-flex items-center p-2 ml-3 text-sm text-gray-500 rounded-lg lg:hidden hover:bg-gray-100 dark:text-gray-400 dark:hover:bg-gray-700"
+        aria-controls="mobile-menu-2" aria-expanded="false">
+        <span class="sr-only">Open main menu</span>
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20">
+          <path fill-rule="evenodd"
+            d="M3 5h14a1 1 0 00 0-2H3a1 1 0 000 2zm14 4H3a1 1 0 000 2h14a1 1 0 000-2zm0 6H3a1 1 0 000 2h14a1 1 0 000-2z"
+            clip-rule="evenodd" />
+        </svg>
+      </button>
+
+      <!-- Navigation links -->
+      <div class="hidden w-full lg:flex lg:w-auto lg:order-1" id="mobile-menu-2">
+        <ul class="flex flex-col font-medium mt-4 border border-gray-100 rounded-lg bg-gray-50 lg:flex-row lg:space-x-8 lg:mt-0 lg:border-0 lg:bg-white dark:bg-gray-800 lg:dark:bg-gray-800 dark:border-gray-700">
+          <li>
+            <a href="<?= url_for('index.php'); ?>"
+              class="block py-2 pl-3 pr-4 text-white bg-blue-700 rounded lg:bg-transparent lg:text-blue-700 lg:p-0 dark:text-white"
+              aria-current="page">Home</a>
+          </li>
+          <li>
+            <a href="<?= url_for('about.php') ?>"
+              class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">About Us</a>
+          </li>
+
+          <!-- Dropdown for Categories -->
+          <li>
+            <button id="dropdownNavbarLink" data-dropdown-toggle="dropdownNavbar"
+              class="flex items-center justify-between w-full py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 lg:w-auto dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">
+              Categories
+              <svg class="w-2.5 h-2.5 ml-2.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+              </svg>
+            </button>
+
+            <!-- Dropdown menu -->
+            <div id="dropdownNavbar"
+              class="z-10 hidden font-normal bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700 dark:divide-gray-600">
+              <ul class="py-2 text-sm text-gray-700 dark:text-gray-200">
+                <?php
+                $cat_query = "SELECT * FROM blog_categories ORDER BY name";
+                $cat_result = mysqli_query($conn, $cat_query);
+                while ($category = mysqli_fetch_assoc($cat_result)) { ?>
+                  <li>
+                    <a href="<?= url_for("category/" . $category["slug"]) ?>"
+                      class="block px-4 py-2 capitalize hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">
+                      <?= $category["name"] ?>
+                    </a>
+                  </li>
+                <?php } ?>
+              </ul>
             </div>
-        </nav>
-    </header>
+          </li>
+
+          <li>
+            <a href="<?= url_for('contact.php') ?>"
+              class="block py-2 pl-3 pr-4 text-gray-700 rounded hover:bg-gray-100 lg:hover:bg-transparent lg:border-0 lg:hover:text-blue-700 lg:p-0 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent">Contact
+              Us</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</header>
 
     <?php if (isset($_SESSION['success'])) { ?>
         <div id="alert-2"
@@ -184,7 +191,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         </li>
                     </nav>
                 </div>
-                <div class="lg:w-2/4 w-full px-4">
+                <div class="lg:w-2/4 w-full px-4 text-left ">
                     <h2 class="title-font font-medium text-gray-900 dark:text-gray-100 tracking-widest text-sm mb-3">
                         Recents Posts</h2>
                     <?php
@@ -195,7 +202,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
     FROM blog_articles b
     LEFT JOIN blog_categories c ON b.category_id = c.id
     LEFT JOIN users u ON b.author_id = u.id
-    WHERE b.is_published = 1 
+    WHERE b.is_published = 1 AND b.is_deleted = 0
     ORDER BY b.id DESC;
 ";
                     $otherResult = mysqli_query($conn, $otherSql);
@@ -230,7 +237,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
         <div class="bg-gray-100 dark:bg-gray-900">
             <div class="container mx-auto py-4 px-5 flex flex-wrap items-center justify-center flex-col sm:flex-row">
-                <p class="text-gray-500 dark:text-gray-100 text-md text-center">© 2020 <?= SITE_NAME ?></p>
+                <p class="text-gray-500 dark:text-gray-100 text-md text-center">© 2020 <?= SITE_NAME ?> All Rights Reserved</p>
             </div>
         </div>
     </footer>

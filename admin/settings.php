@@ -1,4 +1,8 @@
     <?php
+    
+require_once '../includes/helper.php';
+error_page(404);
+exit();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $status = $_POST['toggle_maintenance'] === "true" ? 'true' : 'false';
 

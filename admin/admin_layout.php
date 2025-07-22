@@ -1,4 +1,4 @@
-    <?php
+<?php
 require_once "../includes/helper.php";
 // Check if user is logged in and is admin
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] != 'admin') {
@@ -12,23 +12,30 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><?php echo $page_title; ?> - Art Delivery Admin</title>
+    <title><?php echo $page_title; ?> - Admin Panel</title>
+    <link rel="apple-touch-icon" sizes="180x180" href="<?= url_for('static/apple-touch-icon.png') ?>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<?= url_for('static/favicon-32x32.png') ?>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<?= url_for('static/favicon-16x16.png') ?>">
+    <link rel="manifest" href="<?= url_for('static/site.webmanifest') ?>">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="<?= url_for("static/css/admin.css")?>">
-    <link rel="stylesheet" href="richtexteditor/rte_theme_default.css" />
-<script type="text/javascript" src="richtexteditor/rte.js"></script>
-<script type="text/javascript" src='richtexteditor/plugins/all_plugins.js'></script>
+    <link rel="stylesheet" href="<?= url_for("static/css/admin.css") ?>">
+    <link rel="stylesheet" href="<?= url_for('richtexteditor/rte_theme_default.css') ?>" />
+    <!-- <link href="<?= url_for('richtexteditor/rte_theme_dark.css') ?>" rel="stylesheet" /> -->
+     <script type="text/javascript" src="<?= url_for('richtexteditor/rte.js') ?>"></script>
+    <script type="text/javascript" src='<?= url_for('richtexteditor/plugins/all_plugins.js') ?>'></script>
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="col-lg-2 col-md-3 px-0 sidebar" id="sidebar">
+            <div class="col-lg-2 col-md-2 px-0 sidebar" id="sidebar">
                 <div class="logo-wrapper">
                     <i class="fas fa-paint-brush logo-icon"></i>
                     <h5>Admin Panel</h5>
@@ -36,27 +43,32 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 <div class="nav-container">
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>" href="dashboard.php">
+                            <a class="nav-link <?php echo $current_page == 'dashboard.php' ? 'active' : ''; ?>"
+                                href="dashboard.php">
                                 <i class="fas fa-tachometer-alt"></i> Dashboard
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo $current_page == 'blog_articles.php' || $current_page == 'add_blog_article.php' || $current_page == 'edit_blog_article.php' ? 'active' : ''; ?>" href="blog_articles.php">
+                            <a class="nav-link <?php echo $current_page == 'blog_articles.php' || $current_page == 'add_blog_article.php' || $current_page == 'edit_blog_article.php' ? 'active' : ''; ?>"
+                                href="blog_articles.php">
                                 <i class="fas fa-paint-brush"></i> Blog Articles
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo $current_page == 'categories.php' ? 'active' : ''; ?>" href="categories.php">
+                            <a class="nav-link <?php echo $current_page == 'categories.php' ? 'active' : ''; ?>"
+                                href="categories.php">
                                 <i class="fas fa-list"></i> Categories
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo $current_page == 'contact_us.php' ? 'active' : ''; ?>" href="contact_us.php">
-                                 <i class="fa-solid fa-user"></i> Reader's Queries
+                            <a class="nav-link <?php echo $current_page == 'contact_us.php' ? 'active' : ''; ?>"
+                                href="contact_us.php">
+                                <i class="fa-solid fa-user"></i> Reader's Queries
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link <?php echo $current_page == 'settings.php' ? 'active' : ''; ?>" href="settings.php">
+                            <a class="nav-link <?php echo $current_page == 'settings.php' ? 'active' : ''; ?>"
+                                href="settings.php">
                                 <i class="fas fa-gear"></i> Settings
                             </a>
                         </li>
@@ -90,25 +102,27 @@ $current_page = basename($_SERVER['PHP_SELF']);
                         <span class="theme-text">Dark</span>
                     </div>
                     <div class="nav-item">
-                            <a target="_blank" class="btn btn-primary mx-4 <?= $current_page == 'settings.php' ? 'active' : ''; ?>" href="<?= SITE_URL ?>">
-                                View Site
-                            </a>
-</div>
+                        <a target="_blank"
+                            class="btn btn-primary mx-4 <?= $current_page == 'settings.php' ? 'active' : ''; ?>"
+                            href="<?= SITE_URL ?>">
+                            View Site
+                        </a>
+                    </div>
                 </div>
 
-                <?php if(isset($_SESSION['success'])) { ?>
+                <?php if (isset($_SESSION['success'])) { ?>
                     <div class="alert alert-success alert-dismissible fade show">
-                        <?php 
-                        echo $_SESSION['success']; 
+                        <?php
+                        echo $_SESSION['success'];
                         unset($_SESSION['success']);
                         ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
                     </div>
                 <?php } ?>
-                <?php if(isset($_SESSION['error'])) { ?>
+                <?php if (isset($_SESSION['error'])) { ?>
                     <div class="alert alert-dismissible fade show" style="color:white; background-color:red;">
-                        <?php 
-                        echo $_SESSION['error']; 
+                        <?php
+                        echo $_SESSION['error'];
                         unset($_SESSION['error']);
                         ?>
                         <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
@@ -123,48 +137,49 @@ $current_page = basename($_SERVER['PHP_SELF']);
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
             // Check for saved theme preference or use default dark theme
             const currentTheme = localStorage.getItem('theme') ? localStorage.getItem('theme') : 'dark';
-            
+
             // Apply the saved theme on page load
             document.documentElement.setAttribute('data-theme', currentTheme);
-            
+
             // Update checkbox state based on current theme
             const themeCheckbox = document.getElementById('checkbox');
             if (themeCheckbox) {
                 themeCheckbox.checked = currentTheme === 'dark';
-                
+
                 // Theme toggle functionality
-                themeCheckbox.addEventListener('change', function() {
+                themeCheckbox.addEventListener('change', function () {
                     const newTheme = this.checked ? 'dark' : 'light';
                     document.documentElement.setAttribute('data-theme', newTheme);
                     localStorage.setItem('theme', newTheme);
-                    
+
                     // Dispatch a custom event for other scripts to listen to
-                    document.dispatchEvent(new CustomEvent('themeChanged', { 
-                        detail: { theme: newTheme } 
+                    document.dispatchEvent(new CustomEvent('themeChanged', {
+                        detail: { theme: newTheme }
                     }));
                 });
             }
-            
+
             // Mobile sidebar toggle
             const sidebarToggle = document.getElementById('sidebarToggle');
             if (sidebarToggle) {
-                sidebarToggle.addEventListener('click', function() {
+                sidebarToggle.addEventListener('click', function () {
                     document.getElementById('sidebar').classList.toggle('show');
                 });
             }
-            
+
             // Apply theme to any dynamically loaded content
             applyThemeToElements();
         });
-        
+
         // Function to apply theme to specific elements that might need special handling
         function applyThemeToElements() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
-            
+
             // Apply theme to status badges
             document.querySelectorAll('.badge').forEach(badge => {
                 if (currentTheme === 'dark') {
@@ -175,7 +190,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
                     }
                 }
             });
-            
+
             // Apply theme to tables
             document.querySelectorAll('table').forEach(table => {
                 if (currentTheme === 'dark') {
@@ -185,11 +200,12 @@ $current_page = basename($_SERVER['PHP_SELF']);
                 }
             });
         }
-        
+
         // Listen for theme changes
-        document.addEventListener('themeChanged', function(e) {
+        document.addEventListener('themeChanged', function (e) {
             applyThemeToElements();
         });
     </script>
 </body>
-</html> 
+
+</html>
