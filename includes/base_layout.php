@@ -237,7 +237,7 @@ $current_page = basename($_SERVER['PHP_SELF']);
         </div>
         <div class="bg-gray-100 dark:bg-gray-900">
             <div class="container mx-auto py-4 px-5 flex flex-wrap items-center justify-center flex-col sm:flex-row">
-                <p class="text-gray-500 dark:text-gray-100 text-md text-center">© 2020 <?= SITE_NAME ?> All Rights Reserved</p>
+                <p class="text-gray-500 dark:text-gray-100 text-md text-center">© <?= date('Y') ?> <?= SITE_NAME ?> All Rights Reserved</p>
             </div>
         </div>
     </footer>
