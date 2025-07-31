@@ -13,10 +13,10 @@
 // }
 
 // // Input data (you can get this from a form)
-// $username = 'kastab';
-// $email = 'kastab@gmail.com';
-// $plainPassword = 'Admin1234';
-// $fullName = 'Kastab Garai';
+// $username = 'vanshika';
+// $email = 'vanshika@gmail.com';
+// $plainPassword = 'vanshika@helloworld';
+// $fullName = 'Vanshika';
 // $phone = '';
 // $userType = 'admin'; // You can also use ENUM or integer roles
 
